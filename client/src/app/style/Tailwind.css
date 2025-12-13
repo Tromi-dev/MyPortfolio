@@ -82,6 +82,7 @@
 
   --breakpoint-mob: 768px;
   --breakpoint-thou: 1000px;
+  --breakpoint-col: 1050px;
 
   /* Shadcn */
   --color-sidebar-ring: var(--sidebar-ring);

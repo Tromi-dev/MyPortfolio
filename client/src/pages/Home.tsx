@@ -31,7 +31,7 @@ export default function HomePage() {
 
 const Hero = () => (
   <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center thou:justify-center gap-24 z-[3] absolute top-1/2 left-1/2 trans">
+    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
         reuben
         <span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>
@@ -41,9 +41,9 @@ const Hero = () => (
       {/* <p className="text-light">some creative tagline trust me bro</p> */}
 
       <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
-        <Card children="UI/UX Designer" colour="sky" className="shadow-v" />
-        <Card children="Software Engineer" colour="yellow" className="shadow-v" />
-        <Card children="Web Developer" colour="pink" className="shadow-v" />
+        <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
+        <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
+        <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
       </div>
     </section>
 
@@ -209,7 +209,7 @@ const TitleBlock = ({
   <header
     className={`flex flex-col items-center justify-evenly thou:gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
-    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl  flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
+    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
       <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}
       </h1>

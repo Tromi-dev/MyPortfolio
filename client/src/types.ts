@@ -73,10 +73,11 @@ export type themeType = "light" | "dark";
 export type contextType = { theme: themeType; setTheme: Dispatch<SetStateAction<themeType>> };
 
 export type projectCardColours = "sky" | "pink" | "yellow";
+type cardColours = projectCardColours | "blue" | "purple" | "gold" | "mono";
 
 export type cardProps = HTMLAttributes<HTMLElement> & {
   variant?: string;
-  colour?: projectCardColours | "blue" | "purple" | "gold" | "mono";
+  colour?: cardColours;
   children?: ReactNode;
   ref?: ElemRef | ForwardedRef<HTMLElement>;
 };

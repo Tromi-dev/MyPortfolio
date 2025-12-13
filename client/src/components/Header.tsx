@@ -26,7 +26,8 @@ export default function Header({
 }) {
   return (
     <header
-      className={`flex items-center justify-between w-[96%] gap-y-6 gap-x-10 justify-self-end [grid-area:a] thou:[grid-area:a/a-start/a-end/b-end] ${className}`}>
+      className={`flex items-center justify-between w-[96%] gap-y-6 gap-x-10 justify-self-end [grid-area:a] thou:[grid-area:a/a-start/a-end/b-end] ${className}`}
+    >
       <TitleSection isDev={isDev} isDesign={isDesign} text={text} />
       {children}
     </header>
@@ -50,7 +51,8 @@ const TitleSection = ({
         <div
           className={`header-label ${
             isDev ? "dev" : "des"
-          } text-2xl rounded-full border-3 px-7 mt-3`}>
+          } text-2xl rounded-full border-3 px-7 mt-3`}
+        >
           {isDev ? "Dev" : "Design"}
         </div>
       ) : (
@@ -73,9 +75,10 @@ export const SearchAndSort = ({
     onSubmit={e => e.preventDefault()}
     className={`w-full flex items-center gap-4 ${
       isDev
-        ? "dev max-[1050px]:w-[93dvw] max-[1050px]:justify-between min-[1051px]:mr-12"
+        ? "dev max-col:w-[93dvw] max-col:justify-between min-col:mr-12"
         : "design max-thou:w-[93dvw] max-thou:justify-between min-xl:mr-12"
-    }`}>
+    }`}
+  >
     <Label htmlFor="search" className="flex flex-col items-start text-inv-sys w-full">
       Search
       <Input
@@ -101,7 +104,8 @@ export const SearchAndSort = ({
         <TooltipTrigger type="button">
           <article
             className={`search-y-sort shadow-half ${shadcnToggle}`}
-            onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
+            onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}
+          >
             <SortOrderIcon
               className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}
             />
