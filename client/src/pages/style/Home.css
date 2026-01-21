@@ -71,6 +71,39 @@
   padding-top: 0.5rem;
 }
 
+.hero-card {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  transition: scale 300ms var(--transition);
+  &.one {
+    animation: careerCard 6s var(--transition) 0s infinite forwards;
+  }
+  &.two {
+    animation: careerCard 6s var(--transition) 2s infinite forwards;
+  }
+  &.three {
+    animation: careerCard 6s var(--transition) 4s infinite forwards;
+  }
+}
+
+@keyframes careerCard {
+  0% {
+    scale: 1;
+  }
+  12.5% {
+    scale: 1.25;
+  }
+  20.5% {
+    scale: 1.25;
+  }
+  33% {
+    scale: 1;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
 @media screen and (width > 1000px) {
   .outline-card {
     width: 93%;

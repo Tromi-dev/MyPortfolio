@@ -27,7 +27,7 @@ export default function CodePage() {
             text="My Projects"
             isDev
             children={<SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />}
-            className="max-[1050px]:flex-col max-[1050px]:justify-center max-[1050px]:justify-self-center"
+            // className="max-xl:flex-col max-xl:justify-center max-xl:justify-self-center max-xl:w-[93%]"
           />
           <Projects userInput={userInput} />
         </Grid>
@@ -87,7 +87,8 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     <section
       className={`${
         isFetching && "opacity-75"
-      } project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] max-xl:flex-col max-[1050px]:!mt-12 ${className}`}>
+      } project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] max-xl:flex-col ${className}`}
+    >
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );

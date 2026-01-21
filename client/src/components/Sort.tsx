@@ -1,7 +1,13 @@
 import type { setUserInputProps, Status, userInputProps } from "@/types";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useState } from "react";
 import {
@@ -31,9 +37,11 @@ const initialStatus: Status = {
 export default function ComboBoxResponsive({
   userInput,
   setUserInput,
+  title,
 }: {
   userInput: userInputProps;
   setUserInput: setUserInputProps;
+  title: string;
 }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -43,8 +51,7 @@ export default function ComboBoxResponsive({
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            /* variant="outline" */ className="w-[150px] justify-start search-y-sort !shadow-half">
+          <Button className="w-[150px] justify-start search-y-sort !shadow-half">
             {selectedStatus ? (
               <div className="flex w-full items-center justify-between">
                 {selectedStatus.label}
@@ -69,11 +76,28 @@ export default function ComboBoxResponsive({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-[150px] justify-start search-y-sort">
-          {selectedStatus ? <>{selectedStatus.label}</> : <>Sort by</>}
+        <Button className="w-[150px] justify-start search-y-sort !shadow-half">
+          {selectedStatus ? (
+            <div className="flex w-full items-center justify-between">
+              {selectedStatus.label}
+              <p className={`sort-icon-parent transition-transform ${open && "rotate-180"}`}>🞃</p>
+            </div>
+          ) : (
+            <>Select sort method</>
+          )}
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="cursor-n-resize">
+        <img
+          src="/dragHandle.svg"
+          alt="Drag Handle"
+          className="absolute top-0.5 left-1/2 translate-x-[-50%] pointer-events-none select-none opacity-75 dark:opacity-100"
+          draggable={false}
+        />
+        <DrawerHeader className="py-0 cursor-default">
+          <DrawerTitle className="w-fit jb-mono">{title}</DrawerTitle>
+        </DrawerHeader>
+
         <div className="mt-4 border-t">
           <StatusList
             userInput={userInput}
@@ -112,7 +136,8 @@ function StatusList({
                 setSelectedStatus(statuses.find(priority => priority.value === value) || null);
                 setUserInput({ ...userInput, sort: status.value });
                 setOpen(false);
-              }}>
+              }}
+            >
               {status.label}
             </CommandItem>
           ))}

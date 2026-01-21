@@ -53,7 +53,7 @@
   }
 }
 
-@media screen and (width <= 1050px) {
+@media screen and (width < 1050px) {
   .search-y-sort {
     &:hover {
       scale: 1.05;
@@ -61,5 +61,14 @@
     &:active {
       scale: 0.99;
     }
+  }
+}
+
+@media screen and (width < 1090px) {
+  .header-media {
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    width: 93%;
   }
 }

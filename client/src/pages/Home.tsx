@@ -11,7 +11,7 @@ import {
   type RefObject,
   type SetStateAction,
 } from "react";
-import { aboutMeText, myBackground } from "@/lib/data";
+import { aboutMeText, myExperience } from "@/lib/data";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
@@ -24,14 +24,14 @@ export default function HomePage() {
     <main>
       <Hero />
       <About />
-      <Background />
+      <Experience />
     </main>
   );
 }
 
 const Hero = () => (
   <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center thou:justify-center gap-24 z-[3] absolute top-1/2 left-1/2 trans">
+    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
         reuben
         <span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>
@@ -41,9 +41,9 @@ const Hero = () => (
       {/* <p className="text-light">some creative tagline trust me bro</p> */}
 
       <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
-        <Card children="UI/UX Designer" colour="sky" className="shadow-v" />
-        <Card children="Software Engineer" colour="yellow" className="shadow-v" />
-        <Card children="Web Developer" colour="pink" className="shadow-v" />
+        <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
+        <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
+        <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
       </div>
     </section>
 
@@ -96,49 +96,49 @@ const About = () => {
   );
 };
 
-const Background = () => {
-  const [bgText, setBgText] = useState<number | null>(null);
+const Experience = () => {
+  const [expText, setExpText] = useState<number | null>(null);
 
   type bgRef = HTMLElement | null;
   const refOne = useRef<bgRef>(null);
   const refTwo = useRef<bgRef>(null);
   const refThree = useRef<bgRef>(null);
 
-  const backgroundCardData: { ref: RefObject<bgRef>; className: string; id: number }[] = [
+  const experienceCardData: { ref: RefObject<bgRef>; className: string; id: number }[] = [
     { ref: refOne, className: "[grid-area:c] thou:[grid-area:d]", id: 1 },
     { ref: refTwo, className: "[grid-area:d] thou:[grid-area:e]", id: 2 },
     { ref: refThree, className: "[grid-area:e] thou:[grid-area:f]", id: 3 },
   ];
 
   useEffect(() => {
-    if (bgText === null) return;
-    document.getElementById("background")?.scrollIntoView({ block: "start" });
+    if (expText === null) return;
+    document.getElementById("experience")?.scrollIntoView({ block: "start" });
 
     const handleClick = (e: Event) => {
       const target = e.target;
       const refs = [refOne.current, refTwo.current, refThree.current];
 
       if (refs.includes(target as HTMLElement)) return;
-      setBgText(null);
+      setExpText(null);
     };
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
-  }, [bgText]);
+  }, [expText]);
 
   return (
-    <Grid layout="three-two" id="background" className="bg-pri max-thou:!min-h-fit">
+    <Grid layout="three-two" id="experience" className="bg-pri max-thou:!min-h-fit">
       <TitleBlock
-        text="My Background"
+        text="My Experience"
         alt="#"
         className="w-[93%] [grid-area:a] center-title-block-text"
       />
 
       <div
         className={`${
-          bgText !== null ? "focused" : "text-center"
+          expText !== null ? "focused" : "text-center"
         } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-[86%] self-start thou:self-center h-fit mt-8 mb-6`}
-        id="backgroundInfo"
+        id="experienceInfo"
       >
         <Markdown
           components={{
@@ -150,29 +150,29 @@ const Background = () => {
             ),
           }}
         >
-          {bgText !== null
-            ? myBackground[bgText]?.text ?? "No text found"
+          {expText !== null
+            ? myExperience[expText]?.text ?? "No text found"
             : "Click a card to read more about me!"}
         </Markdown>
       </div>
 
-      {backgroundCardData.map(({ id, ...d }, index) => (
-        <BackgroundCard key={id} {...{ index, bgText, setBgText, ...d }} />
+      {experienceCardData.map(({ id, ...d }, index) => (
+        <ExperienceCard key={id} {...{ index, expText, setExpText, ...d }} />
       ))}
     </Grid>
   );
 };
 
-type backgroundCardProps = cardProps & {
+type experienceCardProps = cardProps & {
   index: number;
-  bgText: number | null;
-  setBgText: Dispatch<SetStateAction<number | null>>;
+  expText: number | null;
+  setExpText: Dispatch<SetStateAction<number | null>>;
 };
-const BackgroundCard = forwardRef<HTMLElement, backgroundCardProps>(
-  ({ index, bgText, ...props }, ref) => {
+const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
+  ({ index, expText, ...props }, ref) => {
     const handleClick = (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      props.setBgText(!(bgText === index) ? index : null);
+      props.setExpText(!(expText === index) ? index : null);
     };
 
     return (
@@ -181,15 +181,15 @@ const BackgroundCard = forwardRef<HTMLElement, backgroundCardProps>(
         onClick={handleClick}
         className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] !py-6 ${
           props.className
-        }${bgText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " mt-4" : ""}
+        }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " mt-4" : ""}
         `}
         colour="blue"
         ref={ref}
       >
-        {myBackground[index].image && (
-          <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
+        {myExperience[index].image && (
+          <img src={myExperience[index].image} alt="Image For a 'My Experience' section" />
         )}
-        <p>{myBackground[index].title}</p>
+        <p>{myExperience[index].title}</p>
       </Card>
     );
   }
@@ -209,7 +209,7 @@ const TitleBlock = ({
   <header
     className={`flex flex-col items-center justify-evenly thou:gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
-    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl  flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
+    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
       <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}
       </h1>

@@ -23,7 +23,7 @@ export default function Footer() {
     <Grid id="footer" layout="row" className="!overflow-visible">
       <Card
         variant="in-grid full"
-        className="px-8 flex min-h-fit max-mob:flex-col items-center justify-center mob:justify-evenly gap-x-6 thou:gap-x-12 gap-y-12 mob:gap-y-4 shadow-v [grid-area:a] dark-border"
+        className="!py-8 flex min-h-fit max-mob:flex-col items-center justify-center mob:justify-evenly gap-x-6 thou:gap-x-12 gap-y-12 mob:gap-y-4 shadow-v [grid-area:a] dark-border"
       >
         <Tooltip delayDuration={500}>
           <TooltipTrigger asChild>
@@ -51,8 +51,8 @@ export default function Footer() {
         >
           <button children="About Me" onClick={() => warpTo("about")} className="link" />
           <button
-            children="My Background"
-            onClick={() => warpTo("background")}
+            children="My Experience"
+            onClick={() => warpTo("experience")}
             className="link mb-4"
           />
 

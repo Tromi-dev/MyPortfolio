@@ -69,7 +69,7 @@ const Dev = () => {
 
   return (
     <div
-      className="fixed top-4 right-4 shadow-iv px-4 py-2 flex items-center gap-2 text-sm text-inv-sys bg-sys/75 backdrop-blur-[.75px] rounded-lg h-fit w-fit z-999"
+      className="fixed top-4 right-4 shadow-iv px-2 hover:px-4 py-2 flex items-center gap-2 text-sm text-inv-sys bg-sys/15 border border-white/5 hover:brightness-125 transition-[filter] backdrop-blur-[1px] rounded-lg h-fit w-fit z-999"
       onMouseEnter={() => setShowX(true)}
       onMouseLeave={() => setShowX(false)}
     >
@@ -86,19 +86,21 @@ const Dev = () => {
         <circle r=".5" cx="15" cy="21" className="stroke-inv-sys stroke-2" />
       </svg>
 
-      <p className="h-4 mb-0.5">Under Development</p>
-
       {showX && (
-        <svg
-          viewBox="0 0 12 12"
-          height={12}
-          width={12}
-          onClick={() => setHide(true)}
-          className="cursor-pointer invert"
-        >
-          <line x2={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
-          <line x1={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
-        </svg>
+        <>
+          <p className="h-4 mb-0.5 font-[500]">Under Development</p>
+
+          <svg
+            viewBox="0 0 12 12"
+            height={12}
+            width={12}
+            onClick={() => setHide(true)}
+            className="cursor-pointer invert"
+          >
+            <line x2={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
+            <line x1={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
+          </svg>
+        </>
       )}
     </div>
   );

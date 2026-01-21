@@ -32,7 +32,7 @@ export default function DesignsPage() {
             children={<SearchAndSort userInput={userInput} setUserInput={setUserInput} />}
             text="My Projects"
             isDesign
-            className="max-xl:flex-col max-xl:justify-center max-xl:justify-self-center max-xl:w-[93%]"
+            // className="max-xl:flex-col max-xl:justify-center max-xl:justify-self-center max-xl:w-[93%]"
           />
 
           <Projects userInput={userInput} />
@@ -83,9 +83,10 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
 
   return (
     <section
-      className={`project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] flex-wrap max-xl:!mt-12 ${
+      className={`project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] flex-wrap ${
         isFetching && "opacity-75"
-      }`}>
+      }`}
+    >
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );
