@@ -10,7 +10,7 @@ import type { CSSProperties, JSX } from "react";
 
 export {
   aboutMeText,
-  myBackground,
+  myExperience,
   getCardColour,
   shadcnToggle,
   getTheme,
@@ -26,8 +26,8 @@ my horizons are always expanding as I seek out new creative avenues and ways to 
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-type backgroundCardContent = { text: string; title: string; image?: string };
-const myBackground: backgroundCardContent[] = [
+type experienceCardContent = { text: string; title: string; image?: string };
+const myExperience: experienceCardContent[] = [
   {
     title: "Tech Educators",
     text: `***Mar 2025 - Jul 2025 —*** This 12 week web-development bootcamp gave me a clearer insight into how a workplace operates, 

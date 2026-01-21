@@ -10,7 +10,7 @@
   color: var(--text-color);
   scrollbar-color: hsl(from var(--image-color) h s l / 0.9) transparent;
   .tag {
-    background-color: var(--tag-background);
+    background-color: hsl(from var(--tag-background) h s l / 0.75);
     color: var(--tag-text);
   }
   .image-cont {

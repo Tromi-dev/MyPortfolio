@@ -19,9 +19,7 @@
 
 .project-card-container {
   width: 93%;
-  min-height: calc(100dvh - 8rem);
-  margin-top: 1rem;
-  /* padding-left: 1.5rem; */
+  margin-top: 1.5rem;
 
   display: flex;
   flex-wrap: wrap;

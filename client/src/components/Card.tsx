@@ -26,7 +26,7 @@ const StatusTag = ({ status }: { status: string }) => {
 
   return (
     <div
-      className={`status ${status.toLowerCase()} absolute bottom-2 right-2 text-xs text-right rounded-[4px] rounded-br-[8px] h-5 w-fit min-w-5 p-3 ${
+      className={`status ${status.toLowerCase()} absolute bottom-2 right-2 text-xs text-right rounded-[8px] h-5 w-fit min-w-5 p-3 ${
         show ? "px-2" : null
       }`}
       tabIndex={0}
@@ -59,7 +59,7 @@ export const CodeCard = memo(
           </div>
 
           <p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-            {name} <span className="text-xs">{date}</span>
+            {name} <span className="text-xs mr-2">{date}</span>
           </p>
 
           <section className="[grid-area:tags] tags">
