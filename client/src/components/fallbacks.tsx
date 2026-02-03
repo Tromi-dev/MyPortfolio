@@ -19,7 +19,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 function NotFound() {
   return (
     <>
-      <title>404 | RD Portfolio</title>
+      <title>404 | Reuben Dubois Portfolio</title>
       <main>
         <Grid id="top">Page not found</Grid>
       </main>
@@ -29,9 +29,9 @@ function NotFound() {
 
 function PageLoading() {
   return (
-    <section
-      className={`w-dvw h-dvh bg-surf-d flex flex-col items-center justify-center gap-4 z-100`}>
-      <p>Loading...</p>
+    <section className="page-loading-screen">
+      <img src="logo.svg" alt="My designer logo" className="grayscale" />
+      <p>Page Loading...</p>
     </section>
   );
 }
@@ -47,17 +47,20 @@ const Error = ({
   refetch,
   className,
 }: {
-  error: Error;
+  error: Error | { message: string };
   refetch: Refetch;
   className?: string;
 }) => (
   <div
-    className={`w-full h-4/5 flex flex-col items-center justify-start gap-4 max-h-4/5 text-center ${className}`}>
-    <img src="/error.svg" alt="Error 'X' Icon" className="max-h-1/2" />
-    <h1>{error.message}</h1>
+    className={`w-full h-full flex flex-col items-center justify-start gap-4 min-h-fit max-h-80 text-center ${className}`}
+  >
+    {/* <img src="/error.svg" alt="Error 'X' Icon" className="max-h-40 h-1/3"  */}
+    <h1 className="orbit text-ter-cont text-2xl w-fit">Uh oh.</h1>
+    <h2 className="text-center">{`${error.message}. Please try again later.`}</h2>
     <button
       onClick={() => refetch()}
-      className="rounded-full bg-err text-light px-6 py-1 mb-4 cursor-pointer transition-all hover-active">
+      className="rounded-full bg-ter-cont text-on-ter-cont px-6 py-1 mb-4 cursor-pointer transition-all hover-active"
+    >
       Retry
     </button>
   </div>

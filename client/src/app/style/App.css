@@ -53,6 +53,18 @@ main {
   border: 0.5px solid #ffffff1c;
 }
 
+.page-loading-screen {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--surface-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 9999999;
+}
+
 @media screen and (width < 1000px) {
   :root {
     font-size: 14px;

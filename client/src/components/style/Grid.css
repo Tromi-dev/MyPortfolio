@@ -142,7 +142,7 @@
         grid-template-rows: repeat(3, max-content) 1fr;
       }
 
-      &#background {
+      &#experience {
         grid-template-rows: 1fr repeat(4, fit-content(20%));
       }
     }

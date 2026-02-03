@@ -25,7 +25,7 @@ export default function DesignsPage() {
 
   return (
     <>
-      <title>Design Projects | RD Portfolio</title>
+      <title>Design Projects | Reuben Dubois Portfolio</title>
       <main>
         <Grid id="top" className="with-header w-full pt-4 grows">
           <Header
@@ -69,7 +69,7 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
     .filter(
       d =>
         userInput.search === "" ||
-        d.name.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())
+        d.name.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase()),
     )
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (

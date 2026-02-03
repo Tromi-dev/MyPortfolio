@@ -36,7 +36,7 @@ export default function DesignProjectPage() {
 
   return (
     <>
-      <title>{`${project!} | RD Portfolio`}</title>
+      <title>{`${project!} | Reuben Dubois Portfolio`}</title>
       <main>
         <Grid id="top" className={`with-header design ${isRefetching ? "opacity-75" : null}`}>
           <Header text={project!} isDesign className="opacity-100" />
@@ -64,7 +64,8 @@ const Content = ({ images, ...props }: designProjectProps) => {
     <>
       <Carousel
         setApi={setApi}
-        className={`[grid-area:images] w-4/6 flex flex-col items-center gap-8 card mono shadow-2xl shadow-sec mb-8 px-18 py-12 rounded-4xl`}>
+        className={`[grid-area:images] w-4/6 flex flex-col items-center gap-8 card mono shadow-2xl shadow-sec mb-8 px-18 py-12 rounded-4xl`}
+      >
         <CarouselContent ParentClassName="rounded-4xl">
           {images.map((i, index) => (
             <CarouselItem key={index}>

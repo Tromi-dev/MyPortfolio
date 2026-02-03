@@ -62,7 +62,11 @@ const About = () => {
   const portalRef = useRef<Elem>(null);
 
   return (
-    <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
+    <Grid
+      layout="three-two"
+      id="about"
+      className="bg-sec z-20 home-shadow max-col:!py-12 max-col:!gap-y-8"
+    >
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
       <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
@@ -127,7 +131,11 @@ const Experience = () => {
   }, [expText]);
 
   return (
-    <Grid layout="three-two" id="experience" className="bg-pri max-thou:!min-h-fit">
+    <Grid
+      layout="three-two"
+      id="experience"
+      className="bg-pri max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8"
+    >
       <TitleBlock
         text="My Experience"
         alt="#"
@@ -151,7 +159,7 @@ const Experience = () => {
           }}
         >
           {expText !== null
-            ? myExperience[expText]?.text ?? "No text found"
+            ? (myExperience[expText]?.text ?? "No text found")
             : "Click a card to read more about me!"}
         </Markdown>
       </div>
@@ -192,7 +200,7 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
         <p>{myExperience[index].title}</p>
       </Card>
     );
-  }
+  },
 );
 
 const TitleBlock = ({
@@ -207,7 +215,7 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col items-center justify-evenly thou:gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
+    className={`flex flex-col items-center justify-evenly gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
     <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
       <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
@@ -219,7 +227,7 @@ const TitleBlock = ({
       src={src}
       alt={alt}
       loading="lazy"
-      className={`bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] max-w-[98dvw] w-fit thou:w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
+      className={`bg-ter thou:h-[calc(60%-0.5rem)] h-3/4 min-w-[7rem] max-w-[98dvw] w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
         src !== "placeholder.svg" ? "object-cover" : "object-contain"
       }`}
     />

@@ -17,7 +17,6 @@ export const db = new Pool({
   connectionString: process.env.DB_URL,
 });
 
-// * needs to be split into card and page data
 export const getDesignCardData = async (): designCardProps => {
   try {
     const { rows } = await db.query(
@@ -25,7 +24,7 @@ export const getDesignCardData = async (): designCardProps => {
       SELECT id, name, TO_CHAR(date, 'DD/MM/YYYY') as "date", logo
       FROM rdmp_designs
       ORDER BY date, name DESC;
-      `
+      `,
     );
     return rows;
   } catch (err) {
@@ -42,7 +41,7 @@ export const getDesignProjectData = async (project: string): designProjectTypes 
       JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       WHERE rdmp_designs.name = $1
       `,
-      [project]
+      [project],
     );
     return rows[0];
   } catch (err) {
@@ -57,7 +56,7 @@ export const getSkillsData = async (): skillsProps => {
       SELECT * 
       FROM rdmp_technical_skills 
       ORDER BY id ASC;
-      `
+      `,
     );
 
     return rows;
@@ -78,7 +77,7 @@ export const getCodeCardData = async (): codeCardProps => {
       JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
       GROUP BY rdmp_repos.id
       ORDER BY rdmp_repos.date DESC;
-      `
+      `,
     );
     return rows;
   } catch (err) {
@@ -96,7 +95,7 @@ export const getRepoData = async (repo: string): repoProps => {
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       WHERE repo_name = $1;
       `,
-      [repo]
+      [repo],
     );
 
     const repoData = rows[0];
@@ -130,11 +129,11 @@ export const getTopRepoData = async (): topProps => {
       WHERE rdmp_designs.top = true
 
       ORDER BY date DESC;
-      `
+      `,
     );
     return rows;
-  } catch (err) {
-    throw new Error("DB Error: " + err);
+  } catch (err: any) {
+    throw new Error(err?.message);
   }
 };
 
@@ -145,7 +144,7 @@ export const getContactData = async (): linkProps => {
       SELECT *
       FROM rdmp_contact_links
       ORDER BY id ASC;
-      `
+      `,
     );
     return rows;
   } catch (err) {
@@ -170,7 +169,7 @@ export const handleRepo = (repo: gitRepo) => {
           [repo.html_url, "GitHub"],
         ],
         repo.owner.login,
-      ]
+      ],
     );
   } catch (err) {
     throw new Error("DB Error: " + err);
@@ -185,7 +184,7 @@ export const updateBio = (bio: string, name: string) => {
       SET bio = $1
       WHERE repo_name = $2
       `,
-      [bio, name]
+      [bio, name],
     );
   } catch (err) {
     throw new Error("DB Error: " + err);

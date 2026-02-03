@@ -20,7 +20,7 @@ export default function CodePage() {
 
   return (
     <>
-      <title>Code Projects | RD Portfolio</title>
+      <title>Code Projects | Reuben Dubois Portfolio</title>
       <main>
         <Grid id="top" className="with-header w-full pt-4 grows">
           <Header

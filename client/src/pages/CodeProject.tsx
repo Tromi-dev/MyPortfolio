@@ -35,7 +35,7 @@ export default function CodeProjectPage() {
 
   return (
     <>
-      <title>{`${project!} | RD Portfolio`}</title>
+      <title>{`${project!} | Reuben Dubois Portfolio`}</title>
       <main>
         <Grid id="top" className="with-header w-full pt-4">
           <Header text={project!} children={<Links links={data.links} />} isDev />
@@ -64,7 +64,8 @@ const Content = ({
           opts={{ loop: true }}
           className={`w-full min-h-fit h-full flex flex-col items-center justify-center gap-4 rounded-2xl ${
             isRefetching ? "opacity-75" : null
-          }`}>
+          }`}
+        >
           <CarouselContent ParentClassName="rounded-2xl">
             {images.map(i => (
               <CarouselItem key={i}>
@@ -91,7 +92,8 @@ const Content = ({
 
         <Card
           className="flex items-center justify-evenly gap-2 w-full"
-          style={{ backgroundColor: style[0], color: style[1] }}>
+          style={{ backgroundColor: style[0], color: style[1] }}
+        >
           <p>{`Updated at: ${props.date}`}</p>
           {/* ADD created date & status tag */}
         </Card>
@@ -101,7 +103,8 @@ const Content = ({
 
       <Card
         className="in-grid scroller markdown-card prose prose-invert max-w-1/2 [grid-area:d]"
-        style={styles.card}>
+        style={styles.card}
+      >
         <ReactMarkdown
           children={props.bio}
           remarkPlugins={[remarkGfm]}
@@ -121,7 +124,8 @@ const Content = ({
                   aProps.href && !aProps.href?.startsWith("./")
                     ? aProps.href
                     : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main${aProps.href}`
-                }>
+                }
+              >
                 {aProps.children}
               </a>
             ),
@@ -190,14 +194,15 @@ const Links = ({ links }: { links: (string | null)[][] }) => {
   return (
     <Card
       colour="sky"
-      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12">
+      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12"
+    >
       {links.map(l =>
         l[0] && l[1] ? (
           <Link key={l[1]} to={l[0]} target="_blank" className="cursor-pointer">
             {getIconFromLabel(l[1])}
             <p>{l[1]}</p>
           </Link>
-        ) : null
+        ) : null,
       )}
     </Card>
   );
