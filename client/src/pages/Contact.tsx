@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <>
       <title>Contact Me | RD Potfolio</title>
-      <main>
+      <main id="pageContent">
         <Grid id="top" className="with-header contact mt-4">
           <Header text="Contact Me" />
           {/* <div className=" min-h-1/3 flex flex-col items-center gap-12 [grid-area:text/text-start/text-end/contacts-end]"> */}

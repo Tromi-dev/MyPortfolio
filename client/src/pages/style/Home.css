@@ -74,33 +74,66 @@
 .hero-card {
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  transition: scale 300ms var(--transition);
+  animation: careerCard 15s ease-in-out infinite;
   &.one {
-    animation: careerCard 6s var(--transition) 0s infinite forwards;
+    animation-delay: -10s;
   }
   &.two {
-    animation: careerCard 6s var(--transition) 2s infinite forwards;
+    animation-delay: -5s;
   }
   &.three {
-    animation: careerCard 6s var(--transition) 4s infinite forwards;
+    animation-delay: 0s;
   }
 }
 
 @keyframes careerCard {
-  0% {
-    scale: 1;
+  0%,
+  33.333% {
+    transform: scale(1);
   }
-  12.5% {
-    scale: 1.25;
+
+  /* rise */
+  38% {
+    transform: scale(1.25);
   }
-  20.5% {
-    scale: 1.25;
+
+  /* hold */
+  58% {
+    transform: scale(1.25);
   }
-  33% {
-    scale: 1;
+
+  /* fall */
+  66.666% {
+    transform: scale(1);
   }
+
+  /* idle until loop */
   100% {
-    scale: 1;
+    transform: scale(1);
+  }
+}
+
+.name-header-char {
+  display: inline-block;
+  /* animation-delay in style attr */
+  will-change: transform;
+  transition: transoform 500ms var(--transition);
+  animation: charSpike 6s var(--transition) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .name-header-char {
+    animation: none;
+  }
+}
+
+@keyframes charSpike {
+  /* sets both to 0 */
+  0%,
+  100% {
+    transform: translateY(-0.3em);
+  }
+  50% {
+    transform: translateY(0);
   }
 }
 

@@ -36,7 +36,7 @@ export default function CodeProjectPage() {
   return (
     <>
       <title>{`${project!} | Reuben Dubois Portfolio`}</title>
-      <main>
+      <main id="pageContent">
         <Grid id="top" className="with-header w-full pt-4">
           <Header text={project!} children={<Links links={data.links} />} isDev />
           <Content {...data} isRefetching={isRefetching} />

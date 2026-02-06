@@ -5,7 +5,7 @@ import type { themeType } from "@/types";
 import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
+import { ErrorFallback, PageLoading, NotFound, Loading } from "@/components/fallbacks";
 import { ThemeContext } from "@/lib/context";
 import { getTheme } from "@/lib/data";
 
@@ -32,16 +32,18 @@ export default function App() {
   }, [theme]);
 
   return (
-    <ThemeContext value={{ theme, setTheme }}>
-      <Suspense fallback={<PageLoading />}>
+    <Suspense fallback={PageLoading()}>
+      <ThemeContext value={{ theme, setTheme }}>
         <Dev />
         <Navbar />
         <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
-          <Content />
+          <Suspense fallback={Loading()}>
+            <Content />
+          </Suspense>
         </ErrorBoundary>
         <Footer />
-      </Suspense>
-    </ThemeContext>
+      </ThemeContext>
+    </Suspense>
   );
 }
 

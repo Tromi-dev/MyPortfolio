@@ -26,7 +26,7 @@ export default function DesignsPage() {
   return (
     <>
       <title>Design Projects | Reuben Dubois Portfolio</title>
-      <main>
+      <main id="pageContent">
         <Grid id="top" className="with-header w-full pt-4 grows">
           <Header
             children={<SearchAndSort userInput={userInput} setUserInput={setUserInput} />}

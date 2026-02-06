@@ -18,10 +18,11 @@ import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
 import Markdown from "react-markdown";
+import { RefreshIcon } from "@/components/icons";
 
 export default function HomePage() {
   return (
-    <main>
+    <main id="pageContent">
       <Hero />
       <About />
       <Experience />
@@ -29,34 +30,65 @@ export default function HomePage() {
   );
 }
 
-const Hero = () => (
-  <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
-      <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
-        reuben
-        <span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>
-        dubois
-      </h1>
+const Hero = () => {
+  // const resetAnimations = () => {
+  //   const elements = document.querySelectorAll(".name-header-char");
+  //   elements.forEach(e => ((e as HTMLElement).style.animation = "none"));
 
-      {/* <p className="text-light">some creative tagline trust me bro</p> */}
+  //   requestAnimationFrame(() => {
+  //     elements.forEach(e => {
+  //       (e as HTMLElement).style.animation = "charSpike 4s var(--transition) infinite";
+  //     });
+  //   });
+  // };
+  const [resetAnimationKey, setResetAnimationkey] = useState(0);
 
-      <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
-        <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
-        <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
-        <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
-      </div>
-    </section>
+  return (
+    <Grid layout="two-two" className="bg-dark hero" id="top">
+      <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
+        {/* wave animation */}
+        <h1 className="name-header orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
+          {"reuben dubois".split("").map((char, i) => (
+            <span
+              key={`${resetAnimationKey}-${i}`}
+              className="name-header-char on hover-active"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
 
-    <img
-      src="/wireframeCodeGradient.svg"
-      alt="App Wireframe & JSX Code fading from transparent to white"
-      loading="eager"
-      className="min-w-dvw min-h-[40dvh] object-bottom object-cover row-[-1] col-span-full self-end z-[2]"
-    />
+        <div className="text-light italic flex items-center gap-4">
+          <p>make everything your own</p>
+          <button
+            onClick={() => setResetAnimationkey(resetAnimationKey + 1)}
+            children={<RefreshIcon />}
+            className="dark-border shadow-i rounded-full p-2 hover-active cursor-pointer"
+            aria-description="Reset the namecard animation"
+          />
+        </div>
 
-    <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
-  </Grid>
-);
+        {/* career cards */}
+        <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
+          <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
+          <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
+          <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
+        </div>
+      </section>
+
+      {/* background image */}
+      <img
+        src="/wireframeCodeGradient.svg"
+        alt="App Wireframe & JSX Code fading from transparent to white"
+        loading="eager"
+        className="min-w-dvw min-h-[40dvh] object-bottom object-cover row-[-1] col-span-full self-end z-[2]"
+      />
+
+      <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
+    </Grid>
+  );
+};
 
 const About = () => {
   const portalRef = useRef<Elem>(null);
@@ -65,7 +97,7 @@ const About = () => {
     <Grid
       layout="three-two"
       id="about"
-      className="bg-sec z-20 home-shadow max-col:!py-12 max-col:!gap-y-8"
+      className="bg-sec !gap-y-0 z-20 home-shadow max-col:!py-12 max-col:!gap-y-8"
     >
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
@@ -134,7 +166,7 @@ const Experience = () => {
     <Grid
       layout="three-two"
       id="experience"
-      className="bg-pri max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8"
+      className="bg-pri !gap-y-0 max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8"
     >
       <TitleBlock
         text="My Experience"
@@ -177,10 +209,10 @@ type experienceCardProps = cardProps & {
   setExpText: Dispatch<SetStateAction<number | null>>;
 };
 const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
-  ({ index, expText, ...props }, ref) => {
+  ({ index, expText, setExpText, ...props }, ref) => {
     const handleClick = (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      props.setExpText(!(expText === index) ? index : null);
+      setExpText(!(expText === index) ? index : null);
     };
 
     return (
@@ -189,7 +221,7 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
         onClick={handleClick}
         className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] !py-6 ${
           props.className
-        }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " mt-4" : ""}
+        }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " max-col:mt-4" : ""}
         `}
         colour="blue"
         ref={ref}
@@ -218,7 +250,7 @@ const TitleBlock = ({
     className={`flex flex-col items-center justify-evenly gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
     <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
-      <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
+      <h1 className="orbit text-center mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}
       </h1>
     </span>

@@ -23,7 +23,9 @@
 .contact-image {
   height: auto;
   width: 2.5rem;
-  transition: transform 300ms var(--transition), font-size 300ms var(--transition);
+  transition:
+    transform 300ms var(--transition),
+    font-size 300ms var(--transition);
   transform-origin: center bottom;
 
   &.fallback {
@@ -38,13 +40,4 @@
 .contact-card {
   --background-color: var(--primary);
   --text-color: var(--tertiary-container);
-}
-
-@keyframes hover-scale {
-  from {
-    width: initial;
-  }
-  to {
-    width: 3rem;
-  }
 }

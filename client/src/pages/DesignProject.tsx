@@ -37,7 +37,7 @@ export default function DesignProjectPage() {
   return (
     <>
       <title>{`${project!} | Reuben Dubois Portfolio`}</title>
-      <main>
+      <main id="pageContent">
         <Grid id="top" className={`with-header design ${isRefetching ? "opacity-75" : null}`}>
           <Header text={project!} isDesign className="opacity-100" />
           <Content {...data} />

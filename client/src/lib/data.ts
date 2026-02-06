@@ -20,7 +20,7 @@ export {
   useMDStyles,
 };
 
-const aboutMeText = `I'm an 18 year old junior software engineer, who's passionate about melding innovation and
+const aboutMeText = `Hello there, I'm an 18 year old junior software engineer, who's passionate about melding innovation and
 what's the most effective in everything I create. I mainly focus on developing web UIs and applications, however 
 my horizons are always expanding as I seek out new creative avenues and ways to improve myself.`;
 
@@ -103,7 +103,7 @@ const compareDates = (date1: string, date2: string) => {
 const sortMethod = (
   a: designCardProps | codeCardProps,
   b: designCardProps | codeCardProps,
-  userInput: userInputProps
+  userInput: userInputProps,
 ): number => {
   if (userInput.sort === "date") return compareDates(a.date, b.date);
 
