@@ -12,13 +12,13 @@ import {
   type SetStateAction,
 } from "react";
 import { aboutMeText, myExperience } from "@/lib/data";
+import { RefreshIcon } from "@/components/icons";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
 import Markdown from "react-markdown";
-import { RefreshIcon } from "@/components/icons";
 
 export default function HomePage() {
   return (
@@ -31,16 +31,6 @@ export default function HomePage() {
 }
 
 const Hero = () => {
-  // const resetAnimations = () => {
-  //   const elements = document.querySelectorAll(".name-header-char");
-  //   elements.forEach(e => ((e as HTMLElement).style.animation = "none"));
-
-  //   requestAnimationFrame(() => {
-  //     elements.forEach(e => {
-  //       (e as HTMLElement).style.animation = "charSpike 4s var(--transition) infinite";
-  //     });
-  //   });
-  // };
   const [resetAnimationKey, setResetAnimationkey] = useState(0);
 
   return (
@@ -60,7 +50,7 @@ const Hero = () => {
         </h1>
 
         <div className="text-light italic flex items-center gap-4">
-          <p>make everything your own</p>
+          <p>Make everything your own.</p>
           <button
             onClick={() => setResetAnimationkey(resetAnimationKey + 1)}
             children={<RefreshIcon />}
@@ -237,8 +227,8 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
 
 const TitleBlock = ({
   text,
-  src = "placeholder.svg",
-  alt,
+  // src = "placeholder.svg",
+  // alt,
   className,
 }: {
   text: string;
@@ -247,21 +237,21 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col items-center justify-evenly gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
+    className={`flex flex-col items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
-    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
+    <span className="section-header ">
       <h1 className="orbit text-center mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}
       </h1>
     </span>
 
-    <img
+    {/* <img
       src={src}
       alt={alt}
       loading="lazy"
       className={`bg-ter thou:h-[calc(60%-0.5rem)] h-3/4 min-w-[7rem] max-w-[98dvw] w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
         src !== "placeholder.svg" ? "object-cover" : "object-contain"
       }`}
-    />
+    /> */}
   </header>
 );
