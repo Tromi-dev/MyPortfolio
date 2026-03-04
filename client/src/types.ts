@@ -102,5 +102,7 @@ export type Status = {
 };
 
 export type Refetch = (
-  options?: RefetchOptions | undefined
+  options?: RefetchOptions | undefined,
 ) => Promise<QueryObserverResult<object[], Error>>;
+
+export type waveProps = { text: string; offset?: number };

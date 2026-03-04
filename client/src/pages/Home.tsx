@@ -1,6 +1,6 @@
 import "./style/Home.css";
 
-import type { cardProps, Elem } from "@/types";
+import type { cardProps, Elem, waveProps } from "@/types";
 import {
   forwardRef,
   useEffect,
@@ -33,26 +33,60 @@ export default function HomePage() {
 const Hero = () => {
   const [resetAnimationKey, setResetAnimationkey] = useState(0);
 
+  function WaveText({ text, offset = 0 }: waveProps) {
+    const CharacterJSX = (props: { characters: string[]; offset: number }) => (
+      <section>
+        {props.characters.map((c, i) => {
+          const index = i + props.offset;
+          return (
+            <span
+              key={index}
+              className="name-header-char on hover-active"
+              style={{ animationDelay: `${index * 80}ms` }}
+            >
+              {c}
+            </span>
+          );
+        })}
+      </section>
+    );
+
+    const characters = text.split("");
+    const firstSpace = characters.findIndex(c => c === " ");
+
+    if (firstSpace === -1) {
+      return <CharacterJSX characters={characters} offset={offset} />;
+    }
+
+    // otherwise split at the first space —> render the leading section
+    // —> render a new WaveText instance for the remaining text as a sibling.
+    const beforeChars = characters.slice(0, firstSpace);
+    const afterText = text.slice(firstSpace + 1);
+
+    return (
+      <>
+        {beforeChars.length && <CharacterJSX characters={beforeChars} offset={offset} />}
+
+        {afterText.length && <WaveText text={afterText} offset={offset + firstSpace + 1} />}
+      </>
+    );
+  }
+
   return (
     <Grid layout="two-two" className="bg-dark hero" id="top">
       <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
         {/* wave animation */}
-        <h1 className="name-header orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
-          {"reuben dubois".split("").map((char, i) => (
-            <span
-              key={`${resetAnimationKey}-${i}`}
-              className="name-header-char on hover-active"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
+        <h1
+          key={resetAnimationKey}
+          className="flex gap-8 items-center justify-center orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]"
+        >
+          <WaveText text="reuben dubois" />
         </h1>
 
         <div className="text-light italic flex items-center gap-4">
           <p>Make everything your own.</p>
           <button
-            onClick={() => setResetAnimationkey(resetAnimationKey + 1)}
+            onClick={() => setResetAnimationkey(k => k + 1)}
             children={<RefreshIcon />}
             className="dark-border shadow-i rounded-full p-2 hover-active cursor-pointer"
             aria-description="Reset the namecard animation"
@@ -91,7 +125,7 @@ const About = () => {
     >
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
-      <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
+      <p className="text-ter-cont contrast-shadow -text [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
         {aboutMeText}
       </p>
 
@@ -175,8 +209,11 @@ const Experience = () => {
             code: ({ className, ...rest }) => (
               <code
                 {...rest}
-                className={`px-1 py-0.5 bg-light/12 brightness-105 rounded-sm ${className}`}
+                className={`px-2 py-0.5 bg-inv-sys/18 brightness-105 rounded-sm box-decoration-clone ${className}`}
               />
+            ),
+            p: ({ className, ...rest }) => (
+              <p {...rest} className={`contrast-shadow -text ${className}`} />
             ),
           }}
         >
@@ -237,7 +274,7 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
+    className={`flex flex-col contrast-shadow items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
     <span className="section-header ">
       <h1 className="orbit text-center mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">

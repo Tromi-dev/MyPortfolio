@@ -140,9 +140,19 @@
   }
 }
 
+.contrast-shadow:not(.dark *) {
+  &:not(.-text) {
+    filter: drop-shadow(4px 4px 2px hsl(from var(--dark) h s l / 0.5));
+  }
+  &.-text {
+    text-shadow: 3px 3px 3px hsl(from var(--dark) h s l / 0.9);
+  }
+}
+
 .name-header-char {
   display: inline-block;
   /* animation-delay in style attr */
+  transform: translateY(-0.3em);
   will-change: transform;
   transition: transoform 500ms var(--transition);
   animation: charSpike 6s var(--transition) infinite;
