@@ -1,6 +1,5 @@
 import type { FallbackProps } from "react-error-boundary";
 import type { Refetch } from "@/types";
-import { Button } from "./ui/button";
 
 import Grid from "./Grid";
 
@@ -8,10 +7,12 @@ export { ErrorFallback, NotFound, PageLoading, Loading, Error };
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
-    <div className="flex flex-col items-center gap-4 justify-between">
-      <h1>Something went wrong</h1>
-      <pre>{error.message}</pre>
-      <Button onClick={resetErrorBoundary}>Try again</Button>
+    <div className="w-full min-h-dvh flex flex-col items-center gap-4 justify-between">
+      <Error
+        error={error}
+        refetch={resetErrorBoundary}
+        className="absolute trans top-1/2 left-1/2"
+      />
     </div>
   );
 }
@@ -19,8 +20,8 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 function NotFound() {
   return (
     <>
-      <title>404 | RD Portfolio</title>
-      <main>
+      <title>404 | Reuben Dubois Portfolio</title>
+      <main id="pageContent">
         <Grid id="top">Page not found</Grid>
       </main>
     </>
@@ -29,9 +30,9 @@ function NotFound() {
 
 function PageLoading() {
   return (
-    <section
-      className={`w-dvw h-dvh bg-surf-d flex flex-col items-center justify-center gap-4 z-100`}>
-      <p>Loading...</p>
+    <section className="page-loading-screen">
+      <img src="logo.svg" alt="My designer logo" className="grayscale" />
+      <p>Page Loading...</p>
     </section>
   );
 }
@@ -47,17 +48,23 @@ const Error = ({
   refetch,
   className,
 }: {
-  error: Error;
-  refetch: Refetch;
+  error: Error | { message: string };
+  refetch: Refetch | ((...args: []) => void);
   className?: string;
 }) => (
   <div
-    className={`w-full h-4/5 flex flex-col items-center justify-start gap-4 max-h-4/5 text-center ${className}`}>
-    <img src="/error.svg" alt="Error 'X' Icon" className="max-h-1/2" />
-    <h1>{error.message}</h1>
+    className={`w-full h-full flex flex-col items-center justify-start gap-6 min-h-fit max-h-80 text-center ${className}`}
+  >
+    {/* <img src="/error.svg" alt="Error 'X' Icon" className="max-h-40 h-1/3"  */}
+    <h1 className="orbit text-ter-cont text-4xl w-fit text-shadow-i">Uh oh.</h1>
+    <p className="text-center w-9/10">
+      An Error has occured: <i className="font-extralight">{error.message}.</i>
+    </p>
+    <p className="text-center mt-[-.5rem]">Please try again later :)</p>
     <button
       onClick={() => refetch()}
-      className="rounded-full bg-err text-light px-6 py-1 mb-4 cursor-pointer transition-all hover-active">
+      className="rounded-full bg-ter-cont text-on-ter-cont px-6 py-1 mb-4 cursor-pointer transition-all hover-active shadow-i"
+    >
       Retry
     </button>
   </div>

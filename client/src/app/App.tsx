@@ -5,7 +5,7 @@ import type { themeType } from "@/types";
 import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
+import { ErrorFallback, PageLoading, NotFound, Loading } from "@/components/fallbacks";
 import { ThemeContext } from "@/lib/context";
 import { getTheme } from "@/lib/data";
 
@@ -32,16 +32,18 @@ export default function App() {
   }, [theme]);
 
   return (
-    <ThemeContext value={{ theme, setTheme }}>
-      <Suspense fallback={<PageLoading />}>
+    <Suspense fallback={PageLoading()}>
+      <ThemeContext value={{ theme, setTheme }}>
         <Dev />
         <Navbar />
         <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
-          <Content />
+          <Suspense fallback={Loading()}>
+            <Content />
+          </Suspense>
         </ErrorBoundary>
         <Footer />
-      </Suspense>
-    </ThemeContext>
+      </ThemeContext>
+    </Suspense>
   );
 }
 
@@ -69,7 +71,8 @@ const Dev = () => {
 
   return (
     <div
-      className="fixed top-4 right-4 shadow-iv px-2 hover:px-4 py-2 flex items-center gap-2 text-sm text-inv-sys bg-sys/15 border border-white/5 hover:brightness-125 transition-[filter] backdrop-blur-[1px] rounded-lg h-fit w-fit z-999"
+      className="w-10 h-10 hover:w-60 fixed top-4 right-4 shadow-iv px-2 hover:px-4 py-2 flex items-center justify-between text-sm text-inv-sys bg-sys/15 border border-white/5 hover:brightness-125 backdrop-blur-[1px] rounded-lg z-999 overflow-hidden"
+      style={{ transition: "filter 150ms var(--transition), width 300ms var(--transition)" }}
       onMouseEnter={() => setShowX(true)}
       onMouseLeave={() => setShowX(false)}
     >
@@ -86,22 +89,25 @@ const Dev = () => {
         <circle r=".5" cx="15" cy="21" className="stroke-inv-sys stroke-2" />
       </svg>
 
-      {showX && (
-        <>
-          <p className="h-4 mb-0.5 font-[500]">Under Development</p>
+      <p
+        className={`h-4 ml-2 translate-y-[-.125em] pr-1 font-medium text-inv-sys whitespace-nowrap ${!showX && "opacity-0 !w-0 !ml-0 !pr-0"}`}
+        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}
+      >
+        Under Development
+      </p>
 
-          <svg
-            viewBox="0 0 12 12"
-            height={12}
-            width={12}
-            onClick={() => setHide(true)}
-            className="cursor-pointer invert"
-          >
-            <line x2={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
-            <line x1={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
-          </svg>
-        </>
-      )}
+      <svg
+        id="x"
+        viewBox="0 0 12 12"
+        height={12}
+        width={12}
+        onClick={() => setHide(true)}
+        className={`cursor-pointer ml-2 ${!showX && "opacity-0 !w-0 !ml-0"}`}
+        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}
+      >
+        <line x2={12} y2={12} className="stroke-inv-sys stroke-1.95" strokeLinecap="round" />
+        <line x1={12} y2={12} className="stroke-inv-sys stroke-1.95" strokeLinecap="round" />
+      </svg>
     </div>
   );
 };

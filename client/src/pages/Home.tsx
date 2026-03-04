@@ -1,6 +1,6 @@
 import "./style/Home.css";
 
-import type { cardProps, Elem } from "@/types";
+import type { cardProps, Elem, waveProps } from "@/types";
 import {
   forwardRef,
   useEffect,
@@ -12,6 +12,7 @@ import {
   type SetStateAction,
 } from "react";
 import { aboutMeText, myExperience } from "@/lib/data";
+import { RefreshIcon } from "@/components/icons";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
@@ -21,7 +22,7 @@ import Markdown from "react-markdown";
 
 export default function HomePage() {
   return (
-    <main>
+    <main id="pageContent">
       <Hero />
       <About />
       <Experience />
@@ -29,43 +30,102 @@ export default function HomePage() {
   );
 }
 
-const Hero = () => (
-  <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
-      <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
-        reuben
-        <span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>
-        dubois
-      </h1>
+const Hero = () => {
+  const [resetAnimationKey, setResetAnimationkey] = useState(0);
 
-      {/* <p className="text-light">some creative tagline trust me bro</p> */}
+  function WaveText({ text, offset = 0 }: waveProps) {
+    const CharacterJSX = (props: { characters: string[]; offset: number }) => (
+      <section>
+        {props.characters.map((c, i) => {
+          const index = i + props.offset;
+          return (
+            <span
+              key={index}
+              className="name-header-char on hover-active"
+              style={{ animationDelay: `${index * 80}ms` }}
+            >
+              {c}
+            </span>
+          );
+        })}
+      </section>
+    );
 
-      <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
-        <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
-        <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
-        <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
-      </div>
-    </section>
+    const characters = text.split("");
+    const firstSpace = characters.findIndex(c => c === " ");
 
-    <img
-      src="/wireframeCodeGradient.svg"
-      alt="App Wireframe & JSX Code fading from transparent to white"
-      loading="eager"
-      className="min-w-dvw min-h-[40dvh] object-bottom object-cover row-[-1] col-span-full self-end z-[2]"
-    />
+    if (firstSpace === -1) {
+      return <CharacterJSX characters={characters} offset={offset} />;
+    }
 
-    <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
-  </Grid>
-);
+    // otherwise split at the first space —> render the leading section
+    // —> render a new WaveText instance for the remaining text as a sibling.
+    const beforeChars = characters.slice(0, firstSpace);
+    const afterText = text.slice(firstSpace + 1);
+
+    return (
+      <>
+        {beforeChars.length && <CharacterJSX characters={beforeChars} offset={offset} />}
+
+        {afterText.length && <WaveText text={afterText} offset={offset + firstSpace + 1} />}
+      </>
+    );
+  }
+
+  return (
+    <Grid layout="two-two" className="bg-dark hero" id="top">
+      <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
+        {/* wave animation */}
+        <h1
+          key={resetAnimationKey}
+          className="flex gap-8 items-center justify-center orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]"
+        >
+          <WaveText text="reuben dubois" />
+        </h1>
+
+        <div className="text-light italic flex items-center gap-4">
+          <p>Make everything your own.</p>
+          <button
+            onClick={() => setResetAnimationkey(k => k + 1)}
+            children={<RefreshIcon />}
+            className="dark-border shadow-i rounded-full p-2 hover-active cursor-pointer"
+            aria-description="Reset the namecard animation"
+          />
+        </div>
+
+        {/* career cards */}
+        <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
+          <Card children="UI/UX Designer" colour="sky" className="hero-card shadow-v one" />
+          <Card children="Software Engineer" colour="yellow" className="hero-card shadow-v two" />
+          <Card children="Web Developer" colour="pink" className="hero-card shadow-v three" />
+        </div>
+      </section>
+
+      {/* background image */}
+      <img
+        src="/wireframeCodeGradient.svg"
+        alt="App Wireframe & JSX Code fading from transparent to white"
+        loading="eager"
+        className="min-w-dvw min-h-[40dvh] object-bottom object-cover row-[-1] col-span-full self-end z-[2]"
+      />
+
+      <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
+    </Grid>
+  );
+};
 
 const About = () => {
   const portalRef = useRef<Elem>(null);
 
   return (
-    <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
+    <Grid
+      layout="three-two"
+      id="about"
+      className="bg-sec !gap-y-0 z-20 home-shadow max-col:!py-12 max-col:!gap-y-8"
+    >
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
-      <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
+      <p className="text-ter-cont contrast-shadow -text [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
         {aboutMeText}
       </p>
 
@@ -127,7 +187,11 @@ const Experience = () => {
   }, [expText]);
 
   return (
-    <Grid layout="three-two" id="experience" className="bg-pri max-thou:!min-h-fit">
+    <Grid
+      layout="three-two"
+      id="experience"
+      className="bg-pri !gap-y-0 max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8"
+    >
       <TitleBlock
         text="My Experience"
         alt="#"
@@ -145,13 +209,16 @@ const Experience = () => {
             code: ({ className, ...rest }) => (
               <code
                 {...rest}
-                className={`px-1 py-0.5 bg-light/12 brightness-105 rounded-sm ${className}`}
+                className={`px-2 py-0.5 bg-inv-sys/18 brightness-105 rounded-sm box-decoration-clone ${className}`}
               />
+            ),
+            p: ({ className, ...rest }) => (
+              <p {...rest} className={`contrast-shadow -text ${className}`} />
             ),
           }}
         >
           {expText !== null
-            ? myExperience[expText]?.text ?? "No text found"
+            ? (myExperience[expText]?.text ?? "No text found")
             : "Click a card to read more about me!"}
         </Markdown>
       </div>
@@ -169,10 +236,10 @@ type experienceCardProps = cardProps & {
   setExpText: Dispatch<SetStateAction<number | null>>;
 };
 const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
-  ({ index, expText, ...props }, ref) => {
+  ({ index, expText, setExpText, ...props }, ref) => {
     const handleClick = (e: MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      props.setExpText(!(expText === index) ? index : null);
+      setExpText(!(expText === index) ? index : null);
     };
 
     return (
@@ -181,7 +248,7 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
         onClick={handleClick}
         className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] !py-6 ${
           props.className
-        }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " mt-4" : ""}
+        }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " max-col:mt-4" : ""}
         `}
         colour="blue"
         ref={ref}
@@ -192,13 +259,13 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
         <p>{myExperience[index].title}</p>
       </Card>
     );
-  }
+  },
 );
 
 const TitleBlock = ({
   text,
-  src = "placeholder.svg",
-  alt,
+  // src = "placeholder.svg",
+  // alt,
   className,
 }: {
   text: string;
@@ -207,21 +274,21 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col items-center justify-evenly thou:gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
+    className={`flex flex-col contrast-shadow items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
   >
-    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
-      <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
+    <span className="section-header ">
+      <h1 className="orbit text-center mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}
       </h1>
     </span>
 
-    <img
+    {/* <img
       src={src}
       alt={alt}
       loading="lazy"
-      className={`bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] max-w-[98dvw] w-fit thou:w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
+      className={`bg-ter thou:h-[calc(60%-0.5rem)] h-3/4 min-w-[7rem] max-w-[98dvw] w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
         src !== "placeholder.svg" ? "object-cover" : "object-contain"
       }`}
-    />
+    /> */}
   </header>
 );

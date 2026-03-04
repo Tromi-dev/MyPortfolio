@@ -42,15 +42,61 @@ main {
   &:hover {
     filter: brightness(115%);
     scale: 1.1;
+    animation: shake 1s var(--transition) linear;
   }
   &:active {
     filter: brightness(90%);
     scale: 0.95;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .hover-active {
+    animation: none;
+  }
+}
 
 .dark-border:is(.dark *) {
   border: 0.5px solid #ffffff1c;
+}
+
+.page-loading-screen {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--surface-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 9999999;
+}
+
+#pageContent {
+  animation: fadeIn 0.5s ease-in linear;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: hsl(from var(--surface-dim) h s l / 90%);
+  }
+  to {
+    background-color: hsl(from var(--surface-dim) h s l / 0%);
+  }
+}
+
+@keyframes shake {
+  0% {
+    rotate: 0deg;
+  }
+  25% {
+    rotate: 3deg;
+  }
+  75% {
+    rotate: -3deg;
+  }
+  100% {
+    rotate: 0deg;
+  }
 }
 
 @media screen and (width < 1000px) {

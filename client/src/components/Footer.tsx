@@ -23,7 +23,7 @@ export default function Footer() {
     <Grid id="footer" layout="row" className="!overflow-visible">
       <Card
         variant="in-grid full"
-        className="!py-8 flex min-h-fit max-mob:flex-col items-center justify-center mob:justify-evenly gap-x-6 thou:gap-x-12 gap-y-12 mob:gap-y-4 shadow-v [grid-area:a] dark-border"
+        className="!py-8 max-thou:mt-8 flex min-h-fit max-mob:flex-col items-center justify-center mob:justify-evenly gap-x-6 thou:gap-x-12 gap-y-12 mob:gap-y-4 shadow-v [grid-area:a] dark-border"
       >
         <Tooltip delayDuration={500}>
           <TooltipTrigger asChild>
@@ -56,7 +56,12 @@ export default function Footer() {
             className="link mb-4"
           />
 
-          <Link to="/cv.pdf" children="My CV" target="_blank" className="link" />
+          <Link
+            to="/CV-Reuben_Dubois-UI_Design-Full_Stack_Dev.pdf"
+            children="My CV"
+            target="_blank"
+            className="link"
+          />
 
           <p className="max-mob:text-center max-mob:w-max">
             {new Date().getFullYear()} RD Design & Development

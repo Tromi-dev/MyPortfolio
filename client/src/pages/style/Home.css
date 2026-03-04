@@ -74,33 +74,103 @@
 .hero-card {
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  transition: scale 300ms var(--transition);
+  animation: careerCard 15s ease-in-out infinite;
   &.one {
-    animation: careerCard 6s var(--transition) 0s infinite forwards;
+    animation-delay: -10s;
   }
   &.two {
-    animation: careerCard 6s var(--transition) 2s infinite forwards;
+    animation-delay: -5s;
   }
   &.three {
-    animation: careerCard 6s var(--transition) 4s infinite forwards;
+    animation-delay: 0s;
   }
 }
 
 @keyframes careerCard {
-  0% {
-    scale: 1;
+  0%,
+  33.333% {
+    transform: scale(1);
   }
-  12.5% {
-    scale: 1.25;
+
+  /* rise */
+  38% {
+    transform: scale(1.25);
   }
-  20.5% {
-    scale: 1.25;
+
+  /* hold */
+  58% {
+    transform: scale(1.25);
   }
-  33% {
-    scale: 1;
+
+  /* fall */
+  66.666% {
+    transform: scale(1);
   }
+
+  /* idle until loop */
   100% {
-    scale: 1;
+    transform: scale(1);
+  }
+}
+
+.section-header {
+  /*h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+
+  color: var(--tertiary-container);
+  height: 100%;
+  width: 100%;
+  min-width: 7rem;
+
+  h1 {
+    line-height: 3rem;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    /* height: 0; */
+    width: 100%;
+    padding: 0.1rem 0;
+    background-color: var(--tertiary-container);
+  }
+}
+
+.contrast-shadow:not(.dark *) {
+  &:not(.-text) {
+    filter: drop-shadow(4px 4px 2px hsl(from var(--dark) h s l / 0.5));
+  }
+  &.-text {
+    text-shadow: 3px 3px 3px hsl(from var(--dark) h s l / 0.9);
+  }
+}
+
+.name-header-char {
+  display: inline-block;
+  /* animation-delay in style attr */
+  transform: translateY(-0.3em);
+  will-change: transform;
+  transition: transoform 500ms var(--transition);
+  animation: charSpike 6s var(--transition) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .name-header-char {
+    animation: none;
+  }
+}
+
+@keyframes charSpike {
+  /* sets both to 0 */
+  0%,
+  100% {
+    transform: translateY(-0.3em);
+  }
+  50% {
+    transform: translateY(0);
   }
 }
 
@@ -113,12 +183,15 @@
 }
 
 @media screen and (width < 1000px) {
+  .section-header {
+    flex-direction: row;
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+
   .section-header::before,
   .section-header::after {
-    content: "";
-    /* height: 0; */
     width: calc(16dvw + 1rem);
-    padding: 0.1rem 0;
-    background-color: var(--tertiary-container);
   }
 }
