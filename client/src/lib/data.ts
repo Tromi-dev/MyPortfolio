@@ -96,6 +96,7 @@ const toDateString = (date: Date) =>
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   });
 
 const compareDates = (date1: Date, date2: Date) => {
