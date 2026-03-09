@@ -5,7 +5,7 @@ export type designCardProps = Promise<
   {
     id: bigint;
     name: string;
-    date: string;
+    date: Date;
 
     logo: string;
   }[]
@@ -14,7 +14,7 @@ export type designCardProps = Promise<
 export type designProjectTypes = Promise<{
   id: bigint;
   name: string;
-  date: string;
+  date: Date;
   images: string[];
   bio: string;
   pros: string;
@@ -36,7 +36,7 @@ export type codeCardProps = Promise<
     name: string;
     logo: string;
     tags: string[];
-    date: string;
+    date: Date;
   }[]
 >;
 
@@ -44,7 +44,7 @@ export type codeCardProps = Promise<
 export type repoProps = Promise<{
   id: bigint;
   repo_name: string;
-  date: string;
+  date: Date;
   style: string[];
   bio: string;
   links: (string | null)[][];

@@ -99,7 +99,7 @@ export const DesignCard = memo(
           </div>
 
           <h1 className="[grid-area:name] text-xl">{name}</h1>
-          <p className="[grid-area:date] text-xs">{date}</p>
+          <p className="[grid-area:date] text-xs">{toDateString(date)}</p>
         </Card>
       </Link>
     );

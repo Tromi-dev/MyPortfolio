@@ -21,7 +21,7 @@ export const getDesignCardData = async (): designCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT id, name, TO_CHAR(date, 'DD/MM/YYYY') as "date", logo
+      SELECT id, name, date, logo
       FROM rdmp_designs
       ORDER BY date, name DESC;
       `,
@@ -36,7 +36,7 @@ export const getDesignProjectData = async (project: string): designProjectTypes 
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, rdmp_designs.pros, rdmp_designs.cons, rdmp_images.images
+      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_designs.date, 'DD/MM/YYYY', rdmp_designs.bio, rdmp_designs.pros, rdmp_designs.cons, rdmp_images.images
       FROM rdmp_designs
       JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       WHERE rdmp_designs.name = $1
@@ -91,7 +91,7 @@ export const getRepoData = async (repo: string): repoProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, repo_name, TO_CHAR(date, 'DD/MM/YYYY') as "date", 
+      SELECT rdmp_repos.id, repo_name, date, 
         ARRAY[brand_colour, text_colour] as "style", bio, links, owner, rdmp_images.images
       FROM rdmp_repos
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id

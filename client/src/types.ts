@@ -29,7 +29,7 @@ export type codeCardProps = {
 export type codeProjectProps = {
   id: bigint;
   repo_name: string;
-  date: string;
+  date: Date;
   style: string[];
   bio: string;
   links: (string | null)[][];
@@ -39,14 +39,14 @@ export type codeProjectProps = {
 export type designCardProps = {
   id: bigint;
   name: string;
-  date: string;
+  date: Date;
   logo: string;
 };
 
 export type designProjectProps = {
   id: bigint;
   name: string;
-  date: string;
+  date: Date;
   images: string[];
   bio: string;
   pros: string;

@@ -1,6 +1,7 @@
 import { ExtraResourceIcon } from "@/components/icons";
 import type {
   codeCardProps,
+  designCardProps,
   // designCardProps,
   projectCardColours,
   themeType,
@@ -109,8 +110,8 @@ const compareDates = (date1: Date, date2: Date) => {
 };
 
 const sortMethod = (
-  a: /* designCardProps |  */ codeCardProps,
-  b: /* designCardProps |  */ codeCardProps,
+  a: designCardProps | codeCardProps,
+  b: designCardProps | codeCardProps,
   userInput: userInputProps,
 ): number => {
   if (userInput.sort === "date") return compareDates(a.date, b.date);
