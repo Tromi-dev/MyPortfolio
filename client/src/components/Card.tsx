@@ -87,9 +87,6 @@ export const CodeCard = memo(
 
 export const DesignCard = memo(
   ({ name, className, logo, date, id, ...props }: designCardProps & Omit<cardProps, "id">) => {
-    console.log("raw date:", date);
-    console.log("json:", JSON.stringify(date));
-    console.log("parsed:", new Date(date));
     return (
       <Link to={`/design-projects/${name}`} className="design-card">
         <Card {...props} className={`card-grid design py-4 ${className}`} id={`${id}`}>
