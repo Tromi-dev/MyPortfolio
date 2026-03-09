@@ -4,12 +4,13 @@ import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
 import { memo, useEffect, useState } from "react";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { toDateString } from "@/lib/data";
 
 export default function Card({ variant, colour, className, ...props }: cardProps) {
   return (
     <article
       className={["card rounded-2xl shadow-ii thou:max-h-[50dvh]", variant, colour, className].join(
-        " "
+        " ",
       )}
       {...props}
     />
@@ -53,32 +54,33 @@ export const CodeCard = memo(
             <img
               src={`${import.meta.env.VITE_BUCKET_URL + logo}`}
               alt={`${name} Logo Image`}
-              className="card-image"
+              className="card-image text-center [line-height:1.5]"
               loading="lazy"
             />
           </div>
 
           <p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-            {name} <span className="text-xs mr-2">{date}</span>
+            {name} <span className="text-xs mr-2">{toDateString(date)}</span>
           </p>
 
           <section className="[grid-area:tags] tags">
-            {tags.map(t => {
-              if (t[1] === "status") {
-                return <StatusTag key={t[0]} status={t[0]} />;
-              }
+            {tags &&
+              tags.map(t => {
+                if (t[1] === "status") {
+                  return <StatusTag key={t[0]} status={t[0]} />;
+                }
 
-              return (
-                <p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
-                  {t[0]}
-                </p>
-              );
-            })}
+                return (
+                  <p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
+                    {t[0]}
+                  </p>
+                );
+              })}
           </section>
         </Card>
       </Link>
     );
-  }
+  },
 );
 
 //* —————————————————————————————————————————————————————————————————————————————————————
@@ -101,5 +103,5 @@ export const DesignCard = memo(
         </Card>
       </Link>
     );
-  }
+  },
 );

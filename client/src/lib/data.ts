@@ -1,7 +1,7 @@
 import { ExtraResourceIcon } from "@/components/icons";
 import type {
   codeCardProps,
-  designCardProps,
+  // designCardProps,
   projectCardColours,
   themeType,
   userInputProps,
@@ -18,6 +18,7 @@ export {
   urlPrefixes,
   contactsData,
   useMDStyles,
+  toDateString,
 };
 
 const aboutMeText = `Hello there, I'm an 18 year old junior software engineer, who's passionate about melding innovation and
@@ -89,20 +90,27 @@ const getTheme = () => {
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const compareDates = (date1: string, date2: string) => {
-  const aMMDD = date1.split("/");
-  const dateA = [aMMDD[1], aMMDD[0], aMMDD[2]].join("/");
-  const bMMDD = date2.split("/");
-  const dateB = [bMMDD[1], bMMDD[0], bMMDD[2]].join("/");
+const toDateString = (date: Date) =>
+  new Date(date).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
-  if (Date.parse(dateA) > Date.parse(dateB)) return 1;
-  if (Date.parse(dateA) < Date.parse(dateB)) return -1;
+const compareDates = (date1: Date, date2: Date) => {
+  // const aMMDD = date1.split("/");
+  // const date1 = [aMMDD[1], aMMDD20], aMMDD[2]].join("/");
+  // const bMMDD = date2.split("/");
+  // const dateB = [bMMDD[1], bMMDD[0], bMMDD[2]].join("/");
+
+  if (date1 > date2) return 1;
+  if (date1 < date2) return -1;
   return 0;
 };
 
 const sortMethod = (
-  a: designCardProps | codeCardProps,
-  b: designCardProps | codeCardProps,
+  a: /* designCardProps |  */ codeCardProps,
+  b: /* designCardProps |  */ codeCardProps,
   userInput: userInputProps,
 ): number => {
   if (userInput.sort === "date") return compareDates(a.date, b.date);

@@ -1,7 +1,9 @@
-import { db, handleRepo, updateBio } from "./db.js";
+import { handleRepo, updateBio } from "./db.js";
 import { Octokit } from "@octokit/rest";
 import { gitRepo } from "./types.js";
 import dotenv from "dotenv";
+
+export { addNewRepos, addBio };
 
 dotenv.config();
 
@@ -14,7 +16,13 @@ const octokit = new Octokit({
 const addNewRepos = async () => {
   // repos that I can't/don't want to make private and/or
   // that I don't want to be shown.
-  const protectedRepos = ["MyPortfolio", "Opinia", "CoPlay", "Pok-dex-Project"];
+  const protectedRepos = [
+    "MyPortfolio",
+    "Opinia",
+    "CoPlay",
+    "Pok-dex-Project",
+    "FractalDev-Portfolio",
+  ];
 
   const { data: allRepos } = await octokit.request("GET /user/repos", {
     visibility: "public",
@@ -41,5 +49,3 @@ const addBio = async (owner: string, repo: string) => {
 
   updateBio(readme.content, repo);
 };
-
-export { addNewRepos, addBio };

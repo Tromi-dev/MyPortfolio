@@ -69,16 +69,18 @@ export const getCodeCardData = async (): codeCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_repos.logo, 
-        ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
-        TO_CHAR(date, 'DD/MM/YYYY') AS "date", rdmp_repos.owner
+      SELECT 
+        rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_repos.logo, 
+        ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) FILTER (WHERE rdmp_tags.id IS NOT NULL) AS "tags",
+        rdmp_repos.date, rdmp_repos.owner
       FROM rdmp_repos
-      LEFT OUTER JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
-      JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
+      LEFT JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
+      LEFT JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
       GROUP BY rdmp_repos.id
       ORDER BY rdmp_repos.date DESC;
       `,
     );
+
     return rows;
   } catch (err) {
     throw new Error("DB Error: " + err);
@@ -162,7 +164,7 @@ export const handleRepo = (repo: gitRepo) => {
       SET (repo_name, date, links[1:2],  owner) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links[1:2], EXCLUDED.owner);
       `,
       [
-        repo.name.replace(/-/g, " "),
+        repo.name.replace(/-/g, " ").replace(/^\w|(\s)\w/g, c => c.toUpperCase()),
         repo.updated_at,
         [
           [repo.homepage, "Project"],

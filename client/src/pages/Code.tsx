@@ -58,21 +58,27 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
 
   // —————————————————————————————————————————————————————————————————————————————————————
 
-  const isInSearch = (d: codeCardProps) => {
-    if (
-      userInput.search === "" ||
-      d.name.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())
-    )
-      return true;
+  const searchFilter = (d: codeCardProps) => {
+    const searchContains = (input: string) =>
+      input.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase());
 
-    for (const i of d.tags)
-      if (i[0].toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())) return true;
+    if (userInput.search === "" || searchContains(d.name)) {
+      return true;
+    }
+
+    if (d.tags) {
+      for (const i of d.tags) {
+        if (searchContains(i[0] /* name of tag */)) {
+          return true;
+        }
+      }
+    }
 
     return false;
   };
 
   const newData = data
-    .filter(isInSearch)
+    .filter(searchFilter)
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
       <CodeCard

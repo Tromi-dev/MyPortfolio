@@ -21,8 +21,8 @@ export type codeCardProps = {
   id: bigint;
   name: string;
   logo: string;
-  tags: string[][];
-  date: string;
+  tags: string[][] | null;
+  date: Date;
   owner: string;
 };
 
