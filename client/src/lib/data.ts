@@ -100,11 +100,6 @@ const toDateString = (date: Date) =>
   });
 
 const compareDates = (date1: Date, date2: Date) => {
-  // const aMMDD = date1.split("/");
-  // const date1 = [aMMDD[1], aMMDD20], aMMDD[2]].join("/");
-  // const bMMDD = date2.split("/");
-  // const dateB = [bMMDD[1], bMMDD[0], bMMDD[2]].join("/");
-
   if (date1 > date2) return 1;
   if (date1 < date2) return -1;
   return 0;

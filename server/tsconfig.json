@@ -7,12 +7,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": "."
   },
-  "include": [
-    "code/server.ts",
-    "code/db.ts",
-    "code/types.ts",
-    "code/handleGit.ts"
-  ]
+  "include": ["code/server.ts", "code/db.ts", "code/types.ts", "code/handleGit.ts"]
 }

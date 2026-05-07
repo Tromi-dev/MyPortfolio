@@ -11,7 +11,10 @@ const server: string = import.meta.env.VITE_SERVER_URL;
 
 async function requestServer(url: string) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+  const timeout = setTimeout(() => {
+    controller.abort();
+    console.log("aborted");
+  }, 10000); // 10s timeout
 
   try {
     const res = await fetch(server + url, {
