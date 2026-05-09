@@ -1,12 +1,12 @@
-# What is this
+# Hall of Fame
 
-Hall of Fame is an active record of my Pokémon playthrough teams that reach the final step/defeat the champion. This serves as a way to document and preserve information about each of my teams, as well as a utility for measuring which pokemon I use the most, and which ones I don't use enough!
-It was created by me to document my Pokémon team victories in an external, preserved way with a bespoke search function. This features the use of query functions, conditional formatting, and an API call to `PokeAPI`.
+This Hall of Fame spreadsheet was created to document my Pokémon team victories in an external, preserved way": including a hand-made ID and search system for rendering any section of data in the sheet. This sheet(s) uses some of the more complex parts of google sheets, such as the `=QUERY()` function, conditional formatting, and custom scripts for API calls.
 
-# What's Here
+## Features
 
-Each team contains 6 members, each having important metadata for that specific pokémon: their nickname, final list of 4 moves, nature, ability, held item, image showing their most _unique_ form and more extra bits.
-Hall of Fame also features a _Totals_ page that tracks how many times a specific pokémon form appears in the team bank. it uses a google sheets table to allow for filtering and sorting of items, as well as clearly showing images of the pokémon and separates each numeric value.
+- search to display certain teams.
+  - view all the necessary information on each team member, the game they featured in, and the rules imposed upon me during each playthrough.
+- view each species (and sometimes form) of Pokémon I have used, alongside the amount of times used in a self sustaining list.
 
 # How to Use it
 
@@ -17,7 +17,7 @@ An example id `762002N` can be split up into 5 sections:
 | :-----: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |    7    | The number of the Pokémon **region** the game takes place in, in chronological order. _`i.e. Kanto, Johto, Hoenn, Orre, Sinnoh, Unova, Kalos, Alola, Galar, Paldea`_ . If the number exceeds past 9, then hexadecimal syntax will be used, `e.g. 10 = A`. If the game is fan-made (rom hack, Pokérogue, etc.) and does NOT take place in an official reigon listed above, then a **percent** (%) will be used instead. **_This examples indicates we are in the Kalos region._** |
 |    6    | The number of the Pokémon **generation** the game was released, in chronological order. **_This example indicates we are in Generation 6._**                                                                                                                                                                                                                                                                                                                                     |
-|    2    | The **index** of the game in the list of games with the **same reigon and generation** values _— See chart below for the full reference_. If the game is fan-made (rom hack, Pokérogue, etc.) and is in an official reigion (i.e. no `%` are present) then and `R` will be appended to distinguish from official games. **_This example indicates we are in Pokémon Y._**                                                                                                        |
+|    2    | The **index** of the game in the list of games with the **same reigon and generation** values _— See chart below for the full reference_. If the game is fan-made (rom hack, Pokérogue, etc.) then and `R` will be appended to distinguish from official games. **_This example indicates we are in Pokémon Y._**                                                                                                                                                                |
 |   002   | The index of the **playthrough** for that specific game, in chronological order. **_This example indicates it is the 2nd playthrough._**                                                                                                                                                                                                                                                                                                                                         |
 |    N    | OPTIONAL — Present if the playthrough is a Nuzlocke.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
@@ -66,6 +66,7 @@ An example id `762002N` can be split up into 5 sections:
 |       Scarlet        |     A91      |
 |        Violet        |     A92      |
 |     Legends Z-A      |     791      |
-|      PokeRogue       |     %%1      |
+|      PokeRogue       |     %%1R     |
 |   Emerald Seaglass   |     391R     |
-|       Lazarus        |     %91      |
+|       Lazarus        |     %91R     |
+|    Emerald Rogue     |     %92R     |

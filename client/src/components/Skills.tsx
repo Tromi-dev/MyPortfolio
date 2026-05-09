@@ -2,7 +2,7 @@ import "./style/Skills.css";
 
 import type { Elem, ElemRef, skillProps } from "@/types";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { fetchSkills } from "@/utils/serverPortal";
+import { fetchSkills } from "@/lib/portal";
 import { useQuery } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
 import { Error, Loading } from "./fallbacks";
@@ -10,7 +10,7 @@ import { Error, Loading } from "./fallbacks";
 import Card from "./Card";
 
 export default function Skills({ portalRef }: { portalRef: ElemRef }) {
-  const { isPending, isError, isFetching, error, data, refetch } = useQuery({
+  const { isPending, isError, isFetching, error, data, refetch, status } = useQuery({
     queryKey: ["skills"],
     queryFn: fetchSkills,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -19,17 +19,22 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }) {
   if (isPending) return <Loading />;
   if (isError) return <Error error={error} refetch={refetch} className="mt-4" />;
 
+  console.log(status);
+
   return (
     <>
       <section
         id="skillContainer"
         className={`w-full h-[86%] px-[.25rem] py-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
           isFetching ? "opacity-75" : ""
-        }`}
-      >
-        {data.map(d => (
-          <SkillCard key={d.name} d={d} portalRef={portalRef} />
-        ))}
+        }`}>
+        {data.length > 0 ? (
+          data.map(d => <SkillCard key={d.name} d={d} portalRef={portalRef} />)
+        ) : (
+          <div className="opacity-75 text-center whitespace-nowrap">
+            Skills were not <wbr /> retrieved, <br /> try again soon.
+          </div>
+        )}
       </section>
     </>
   );
@@ -106,8 +111,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
         colour="purple"
         ref={ref}
         tabIndex={0}
-        onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}
-      >
+        onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
         <img
           src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") || "/noSkill.svg"}
           alt="logo"
@@ -121,11 +125,10 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
           <Card
             ref={skillNameRef}
             style={coords}
-            className="skill-name absolute rounded-md z-10 shadow-iv text-sm dark-border box-content"
-          >
+            className="skill-name absolute rounded-md z-10 shadow-iv text-sm dark-border box-content">
             {d.name || "n/a"}
           </Card>,
-          portalRef.current
+          portalRef.current,
         )}
     </>
   );

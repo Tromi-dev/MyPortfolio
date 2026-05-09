@@ -3,9 +3,10 @@ import type {
   codeProjectProps,
   designCardProps,
   designProjectProps,
+  skillProps,
   topProps,
 } from "@/types";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type PostgrestBuilder } from "@supabase/supabase-js";
 
 const env = import.meta.env;
 
@@ -39,33 +40,59 @@ async function requestServer(url: string) {
   }
 }
 
-function tmout(ac: AbortController) {
-  ac.abort();
-  console.log("aborted");
+async function requestDatabase<T>(
+  query: PostgrestBuilder<never, T, false>,
+  ac: AbortController = new AbortController(),
+  timeoutMs = 4000,
+) {
+  const timeout = setTimeout(() => {
+    ac.abort();
+    console.log("aborted");
+  }, timeoutMs);
+
+  try {
+    const req = await query;
+
+    // If the response data is nullish, throw so callers get an explicit error
+    if (req.data == null) {
+      throw new Error("Database returned no data");
+    }
+
+    return req.data;
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error("Request timed out. Please try again.");
+    } else {
+      throw new Error("Database error");
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 // Home.tsx
-export const fetchSkills = async () => {
+export const fetchSkills = async (): Promise<skillProps[]> => {
   const ac = new AbortController();
-
-  const req = await database
-    .from("rdmp_technical_skils")
-    .select()
-    .order("id")
-    .abortSignal(ac.signal);
-
-  if (req.data) {
-    clearTimeout(setTimeout(tmout, 10000));
-  }
-
-  setTimeout(tmout, 10000); // 10s timeout
-
-  return req;
+  return await requestDatabase<skillProps[]>(
+    database
+      .from("rdmp_technical_skills")
+      .select()
+      .order("id")
+      .abortSignal(ac.signal)
+      .overrideTypes<skillProps[], { merge: false }>(),
+  );
 };
-/* async (): Promise<skillProps[]> => await requestServer("/get-skills"); */
 
-export const fetchTopProjects = async (): Promise<topProps[]> =>
-  await requestServer("/get-repo/top");
+export const fetchTopProjects = async (): Promise<topProps[]> => {
+  const ac = new AbortController();
+  return await requestDatabase<topProps[]>(
+    database
+      .from("top_projects")
+      .select()
+      .abortSignal(ac.signal)
+      .overrideTypes<topProps[], { merge: false }>(),
+  );
+};
 
 // Code.tsx
 export const fetchCodeCards = async (): Promise<codeCardProps[]> =>

@@ -33,8 +33,7 @@ const StatusTag = ({ status }: { status: string }) => {
       tabIndex={0}
       onMouseOver={() => !isColumn && setShow(true)}
       onMouseOut={() => !isColumn && setShow(false)}
-      onKeyUp={e => e.key === "Enter" && setShow(!show)}
-    >
+      onKeyUp={e => e.key === "Enter" && setShow(!show)}>
       {show && status}
     </div>
   );
@@ -47,8 +46,7 @@ export const CodeCard = memo(
     return (
       <Link
         to={encodeURI(`/code-projects/${owner}/${name}`)}
-        className={`relative grow-1 ${props.className}`}
-      >
+        className={`relative grow-1 ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container image-cont rounded-lg flex items-center justify-center">
             <img
@@ -60,7 +58,7 @@ export const CodeCard = memo(
           </div>
 
           <p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-            {name} <span className="text-xs mr-2">{toDateString(date)}</span>
+            {name} <span className="text-xs mr-3">{toDateString(date)}</span>
           </p>
 
           <section className="[grid-area:tags] tags">

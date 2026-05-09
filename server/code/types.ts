@@ -3,72 +3,62 @@ import type { Endpoints } from "@octokit/types";
 // — DB Route Queries ————————————————————————
 export type designCardProps = Promise<
   {
-    id: bigint;
     name: string;
     date: Date;
-
     logo: string;
   }[]
 >;
 
 export type designProjectTypes = Promise<{
-  id: bigint;
   name: string;
   date: Date;
-  images: string[];
   bio: string;
   pros: string;
   cons: string;
+  images: string[];
 }>;
 
-export type skillsProps = Promise<
-  {
-    id: bigint;
-    name: string;
-    logo_name: string;
-  }[]
->;
+// export type skillsProps = Promise<
+//   {
+//     id: bigint;
+//     name: string;
+//     logo_name: string;
+//   }[]
+// >;
 
 // every repo
 export type codeCardProps = Promise<
   {
-    id: bigint;
+    repo: string;
     name: string;
     logo: string;
     tags: string[];
     date: Date;
+    owner: string;
   }[]
 >;
 
 // data for individual project page
 export type repoProps = Promise<{
-  id: bigint;
-  repo_name: string;
+  repo: string;
+  name: string;
   date: Date;
-  style: string[];
+  style: JSON;
   bio: string;
-  links: (string | null)[][];
+  proj_link: string;
+  git_link: string;
   owner: string;
   images: string[];
 }>;
 
-export type topProps = Promise<
-  {
-    id: bigint;
-    name: string;
-    image: string;
-    is_code: boolean;
-  }[]
->;
-
-export type linkProps = Promise<
-  {
-    id: bigint;
-    link: string;
-    style: string;
-    logo_name: string;
-  }[]
->;
+// export type topProps = Promise<
+//   {
+//     id: bigint;
+//     name: string;
+//     image: string;
+//     is_code: boolean;
+//   }[]
+// >;
 
 // — GitHub Handling ————————————————————————
 export type dbRepoName = { repo_name: string };

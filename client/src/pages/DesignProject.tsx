@@ -1,7 +1,7 @@
 import "./style/Project.css";
 
 import type { designProjectProps } from "@/types";
-import { fetchDesignProject } from "@/utils/serverPortal";
+import { fetchDesignProject } from "@/lib/portal";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -64,8 +64,7 @@ const Content = ({ images, ...props }: designProjectProps) => {
     <>
       <Carousel
         setApi={setApi}
-        className={`[grid-area:images] w-4/6 flex flex-col items-center gap-8 card mono shadow-2xl shadow-sec mb-8 px-18 py-12 rounded-4xl`}
-      >
+        className={`[grid-area:images] w-4/6 flex flex-col items-center gap-8 card mono shadow-2xl shadow-sec mb-8 px-18 py-12 rounded-4xl`}>
         <CarouselContent ParentClassName="rounded-4xl">
           {images.map((i, index) => (
             <CarouselItem key={index}>

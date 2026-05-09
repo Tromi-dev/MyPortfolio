@@ -2,7 +2,7 @@ import "./style/Designs.css";
 
 import type { userInputProps } from "@/types";
 import { useState } from "react";
-import { fetchDesignCards } from "@/utils/serverPortal";
+import { fetchDesignCards } from "@/lib/portal";
 import { Error, Loading } from "@/components/fallbacks";
 import { getCardColour, sortMethod } from "@/lib/data";
 import { useQuery } from "@tanstack/react-query";
@@ -85,8 +85,7 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
     <section
       className={`project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] flex-wrap ${
         isFetching && "opacity-75"
-      }`}
-    >
+      }`}>
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );

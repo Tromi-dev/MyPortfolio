@@ -4,7 +4,7 @@ import type { codeCardProps, userInputProps } from "@/types";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { CodeCard } from "@/components/Card";
-import { fetchCodeCards } from "@/utils/serverPortal";
+import { fetchCodeCards } from "@/lib/portal";
 import { sortMethod, getCardColour } from "@/lib/data";
 import { Error, Loading } from "@/components/fallbacks";
 import Header, { SearchAndSort } from "@/components/Header";
@@ -93,8 +93,7 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     <section
       className={`${
         isFetching && "opacity-75"
-      } project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] max-xl:flex-col ${className}`}
-    >
+      } project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] max-xl:flex-col ${className}`}>
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );
