@@ -1,14 +1,13 @@
 import "./style/Project.css";
 
-import type { codeProjectProps } from "@/types";
-import { useContext } from "react";
+import type { codeProjectProps, palette } from "@/types";
 import { Link, useParams } from "react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchCodeProject } from "@/lib/portal";
-import { ExtraResourceIcon, GitHubIcon, ProjectIcon } from "@/components/icons";
+import { GitHubIcon, ProjectIcon } from "@/components/icons";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useMDStyles } from "@/lib/data";
+import { customPalette } from "@/lib/data";
 
 import {
   Carousel,
@@ -23,7 +22,6 @@ import Header from "@/components/Header";
 import Card from "@/components/Card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ThemeContext } from "@/lib/context";
 
 export default function CodeProjectPage() {
   const { owner, project } = useParams();
@@ -38,7 +36,13 @@ export default function CodeProjectPage() {
       <title>{`${project!} | Reuben Dubois Portfolio`}</title>
       <main id="pageContent">
         <Grid id="top" className="with-header w-full pt-4">
-          <Header text={project!} children={<Links links={data.links} />} isDev />
+          <Header
+            text={project!}
+            children={
+              <Links git_link={data.git_link} proj_link={data.proj_link} palette={data.style} />
+            }
+            isDev
+          />
           <Content {...data} isRefetching={isRefetching} />
         </Grid>
       </main>
@@ -51,11 +55,11 @@ export default function CodeProjectPage() {
 const Content = ({
   images,
   isRefetching,
-  style,
+
   ...props
 }: codeProjectProps & { isRefetching: boolean }) => {
-  const { theme } = useContext(ThemeContext);
-  const styles = useMDStyles(style, theme);
+  const palette = props.style || { background: "var(--background)", foreground: "var(--primary)" };
+  const styles = customPalette(palette);
 
   return (
     <>
@@ -66,32 +70,33 @@ const Content = ({
             isRefetching ? "opacity-75" : null
           }`}>
           <CarouselContent ParentClassName="rounded-2xl">
-            {images.map(i => (
-              <CarouselItem key={i}>
-                <img
-                  src={import.meta.env.VITE_BUCKET_URL + "/" + i}
-                  alt={`Code Project Image #${images.indexOf(i)}`}
-                  className="code-project-image rounded-2xl"
-                />
-              </CarouselItem>
-            ))}
+            {images &&
+              images.map(i => (
+                <CarouselItem key={i}>
+                  <img
+                    src={import.meta.env.VITE_BUCKET_URL + "/" + i}
+                    alt={`Code Project Image #${images.indexOf(i)}`}
+                    className="code-project-image rounded-2xl"
+                  />
+                </CarouselItem>
+              ))}
           </CarouselContent>
 
           <div className="code-carousel w-4/5">
             <CarouselPrevious
               className="w-2/5"
-              style={{ backgroundColor: style[0], color: style[1] }}
+              style={{ backgroundColor: palette.background, color: palette.foreground }}
             />
             <CarouselNext
               className="w-2/5"
-              style={{ backgroundColor: style[0], color: style[1] }}
+              style={{ backgroundColor: palette.background, color: palette.foreground }}
             />
           </div>
         </Carousel>
 
         <Card
           className="flex items-center justify-evenly gap-2 w-full"
-          style={{ backgroundColor: style[0], color: style[1] }}>
+          style={{ backgroundColor: palette.background, color: palette.foreground }}>
           <p>{`Updated at: ${props.date}`}</p>
           {/* ADD created date & status tag */}
         </Card>
@@ -120,7 +125,7 @@ const Content = ({
                 href={
                   aProps.href && !aProps.href?.startsWith("./")
                     ? aProps.href
-                    : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main${aProps.href}`
+                    : `https://github.com/TruckOfMinds/${props.repo}/blob/main${aProps.href}`
                 }>
                 {aProps.children}
               </a>
@@ -175,30 +180,23 @@ const Content = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Links = ({ links }: { links: (string | null)[][] }) => {
-  const getIconFromLabel = (label: string) => {
-    switch (label.toLowerCase()) {
-      case "project":
-        return <ProjectIcon />;
-      case "github":
-        return <GitHubIcon />;
-      default:
-        return <ExtraResourceIcon />;
-    }
-  };
-
+const Links = (props: { proj_link?: string; git_link?: string; palette: palette }) => {
+  const obj = Object.entries({ proj_link: props.proj_link, git_link: props.git_link });
   return (
     <Card
       colour="sky"
-      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12">
-      {links.map(l =>
-        l[0] && l[1] ? (
-          <Link key={l[1]} to={l[0]} target="_blank" className="cursor-pointer">
-            {getIconFromLabel(l[1])}
-            <p>{l[1]}</p>
-          </Link>
-        ) : null,
-      )}
+      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-center gap-2 mr-12">
+      {obj.map(([k, v], count) => (
+        <Link
+          className={`cursor-pointer${v && " opacity-50"}`}
+          key={`${count}_link_${k || ""}`}
+          inert={Boolean(v)}
+          target="_blank"
+          to={v || ""}>
+          {k === "proj_link" ? <ProjectIcon /> : <GitHubIcon />}
+          <p>{k === "proj_link" ? "Project" : "GitHub"}</p>
+        </Link>
+      ))}
     </Card>
   );
 };

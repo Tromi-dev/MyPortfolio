@@ -74,8 +74,8 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
       <DesignCard
-        key={d.id}
-        colour={getCardColour(d.id)}
+        key={d.name}
+        colour={getCardColour(d.name)}
         className="transition-all hover:brightness-105 hover:scale-105 active:brightness-90"
         {...d}
       />

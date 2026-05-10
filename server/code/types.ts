@@ -30,9 +30,9 @@ export type designProjectTypes = Promise<{
 export type codeCardProps = Promise<
   {
     repo: string;
-    name: string;
-    logo: string;
-    tags: string[];
+    name?: string;
+    logo?: string;
+    tags: string[][] | null;
     date: Date;
     owner: string;
   }[]
@@ -41,14 +41,14 @@ export type codeCardProps = Promise<
 // data for individual project page
 export type repoProps = Promise<{
   repo: string;
-  name: string;
+  name?: string;
   date: Date;
-  style: JSON;
-  bio: string;
-  proj_link: string;
-  git_link: string;
+  style?: JSON;
+  bio?: string;
+  proj_link?: string;
+  git_link?: string;
   owner: string;
-  images: string[];
+  images?: string[];
 }>;
 
 // export type topProps = Promise<

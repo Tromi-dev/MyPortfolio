@@ -8,8 +8,6 @@ import type {
   SetStateAction,
 } from "react";
 
-// server pulls
-
 export type gridProps = {
   layout?: string;
   className?: string;
@@ -17,8 +15,10 @@ export type gridProps = {
   children: ReactNode;
 };
 
+// server pulls
+
 export type codeCardProps = {
-  id: bigint;
+  repo: string;
   name: string;
   logo: string;
   tags: string[][] | null;
@@ -26,31 +26,32 @@ export type codeCardProps = {
   owner: string;
 };
 
+export type palette = { background: string; foreground: string } | undefined;
 export type codeProjectProps = {
-  id: bigint;
-  repo_name: string;
+  repo: string;
+  name?: string;
   date: Date;
-  style: string[];
-  bio: string;
-  links: (string | null)[][];
-  images: string[];
+  style?: palette;
+  bio?: string;
+  proj_link?: string;
+  git_link?: string;
+  owner: string;
+  images?: string[];
 };
 
 export type designCardProps = {
-  id: bigint;
   name: string;
   date: Date;
   logo: string;
 };
 
 export type designProjectProps = {
-  id: bigint;
   name: string;
   date: Date;
-  images: string[];
   bio: string;
   pros: string;
   cons: string;
+  images: string[];
 };
 
 export type skillProps = {

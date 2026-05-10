@@ -42,16 +42,17 @@ const StatusTag = ({ status }: { status: string }) => {
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const CodeCard = memo(
-  ({ name, logo, tags, date, owner, ...props }: codeCardProps & Omit<cardProps, "id">) => {
+  ({ repo, name, logo, tags, date, owner, ...props }: codeCardProps & cardProps) => {
+    const url: string = import.meta.env.VITE_BUCKET_URL + logo || "/placeholder.svg";
     return (
       <Link
-        to={encodeURI(`/code-projects/${owner}/${name}`)}
+        to={encodeURI(`/code-projects/${owner}/${repo}`)}
         className={`relative grow-1 ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container image-cont rounded-lg flex items-center justify-center">
             <img
-              src={`${import.meta.env.VITE_BUCKET_URL + logo}`}
-              alt={`${name} Logo Image`}
+              src={url}
+              alt={`${name || repo} Logo Image`}
               className="card-image text-center [line-height:1.5]"
               loading="lazy"
             />
@@ -84,10 +85,10 @@ export const CodeCard = memo(
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const DesignCard = memo(
-  ({ name, className, logo, date, id, ...props }: designCardProps & Omit<cardProps, "id">) => {
+  ({ name, className, logo, date, ...props }: designCardProps & cardProps) => {
     return (
       <Link to={`/design-projects/${name}`} className="design-card">
-        <Card {...props} className={`card-grid design py-4 ${className}`} id={`${id}`}>
+        <Card {...props} className={`card-grid design py-4 ${className}`} id={`designCard-${name}`}>
           <div className="image-cont w-full [grid-area:image] justify-self-center rounded-md flex items-center justify-center flex-grow-1">
             <img
               src={`${import.meta.env.VITE_BUCKET_URL}/${logo}`}

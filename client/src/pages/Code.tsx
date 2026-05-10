@@ -82,8 +82,8 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
       <CodeCard
-        key={String(d.id)}
-        colour={getCardColour(d.id)}
+        key={d.repo}
+        colour={getCardColour(d.repo)}
         className={`h-48 card-width transition-all hover:brightness-105 hover:scale-105 active:brightness-90`}
         {...d}
       />

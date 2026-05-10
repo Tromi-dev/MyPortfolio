@@ -4,10 +4,9 @@ import type {
   designCardProps,
   // designCardProps,
   projectCardColours,
-  themeType,
   userInputProps,
 } from "@/types";
-import type { CSSProperties, JSX } from "react";
+import type { JSX } from "react";
 
 export {
   aboutMeText,
@@ -18,7 +17,7 @@ export {
   sortMethod,
   urlPrefixes,
   contactsData,
-  useMDStyles,
+  customPalette,
   toDateString,
 };
 
@@ -66,9 +65,9 @@ const randomColour = (): "sky" | "pink" | "yellow" => {
   return choice === 0 ? "sky" : choice === 1 ? "pink" : "yellow";
 };
 
-const cardColours = new Map<bigint, projectCardColours>();
+const cardColours = new Map<string, projectCardColours>();
 
-const getCardColour = (id: bigint) => {
+const getCardColour = (id: string) => {
   if (!cardColours.has(id)) cardColours.set(id, randomColour());
   return cardColours.get(id)!;
 };
@@ -154,38 +153,16 @@ const contactsData: contactProps[] = [
 ];
 
 //* —————————————————————————————————————————————————————————————————————————————————————
-
-const useMDStyles = (col: string[], theme: themeType): { [k: string]: CSSProperties } =>
-  theme === "dark"
-    ? {
-        card: {
-          backgroundColor: col[0],
-          scrollbarColor: `${col[0]} transparent`,
-        },
-        img: { color: col[1] },
-        a: { color: col[1] },
-        h1: { color: col[1] },
-        h2: { color: col[1] },
-        h3: { color: col[1] },
-        p: { color: col[1] },
-        li: { color: col[1] },
-      }
-    : {
-        card: {
-          backgroundColor: col[1],
-          scrollbarColor: `${col[0]} transparent`,
-        },
-        img: {
-          color: `hsl(from ${col[1]} h s calc(l - 64))`,
-        },
-        a: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
-        h1: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
-        h2: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
-        h3: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
-        p: {
-          color: `hsl(from ${col[1]} h s calc(l - 80))`,
-        },
-        li: {
-          color: `hsl(from ${col[1]} h s calc(l - 80))`,
-        },
-      };
+const customPalette = (colours: { background: string; foreground: string }) => ({
+  card: {
+    backgroundColor: colours.foreground,
+    scrollbarColor: `${colours.foreground} transparent`,
+  },
+  img: { color: colours.background },
+  a: { color: colours.background },
+  h1: { color: colours.background },
+  h2: { color: colours.background },
+  h3: { color: colours.background },
+  p: { color: colours.background },
+  li: { color: colours.background },
+});
