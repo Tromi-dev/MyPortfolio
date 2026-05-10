@@ -48,22 +48,6 @@ export const getDesignProjectData = async (project: string): designProjectTypes 
   }
 };
 
-// export const getSkillsData = async (): skillsProps => {
-//   try {
-//     const { rows } = await db.query(
-//       `
-//       SELECT *
-//       FROM rdmp_technical_skills
-//       ORDER BY id ASC;
-//       `,
-//     );
-
-//     return rows;
-//   } catch (err) {
-//     throw new Error("[Database] " + err);
-//   }
-// };
-
 export const getCodeCardData = async (): codeCardProps => {
   try {
     const { rows } = await db.query(
@@ -73,7 +57,7 @@ export const getCodeCardData = async (): codeCardProps => {
         ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) FILTER (WHERE rdmp_tags.id IS NOT NULL) AS "tags",
         rdmp_repos.date, rdmp_repos.owner
       FROM rdmp_repos
-      LEFT JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
+      LEFT JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.repo_name
       LEFT JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
       GROUP BY repo_name
       ORDER BY rdmp_repos.date DESC;

@@ -62,7 +62,7 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     const searchContains = (input: string) =>
       input.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase());
 
-    if (userInput.search === "" || searchContains(d.name)) {
+    if (userInput.search === "" || (d.name && searchContains(d.name))) {
       return true;
     }
 
