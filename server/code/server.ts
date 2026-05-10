@@ -11,8 +11,9 @@ import {
 import { addBio, addNewRepos } from "./handleGit.js";
 
 const app = express();
-app.use(express.json());
 app.use(cors<Request>());
+app.options("*", cors());
+app.use(express.json());
 
 app.listen(4060, () => console.log("hey all, port 4060 here"));
 

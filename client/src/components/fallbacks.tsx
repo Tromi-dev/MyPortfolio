@@ -56,7 +56,7 @@ const Error = ({
   className?: string;
 }) => (
   <div
-    className={`w-full h-full flex flex-col items-center justify-center gap-4 min-h-fit max-h-80 text-center ${className}`}>
+    className={`w-full h-full flex flex-col items-center justify-center gap-4 min-h-fit max-h-80 text-center bg-black/10 rounded-2xl ${className}`}>
     {/* <img src="/error.svg" alt="Error 'X' Icon" className="max-h-40 h-1/3"  */}
     <h1 className="orbit text-ter-cont text-3xl w-fit text-shadow-i">Error</h1>
     <p className="text-center w-9/10">
