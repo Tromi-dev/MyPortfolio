@@ -2,12 +2,11 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import {
   getCodeCardData,
-  getContactData,
   getDesignCardData,
   getDesignProjectData,
   getRepoData,
-  getSkillsData,
-  getTopRepoData,
+  // getSkillsData,
+  // getTopRepoData,
 } from "./db.js";
 import { addBio, addNewRepos } from "./handleGit.js";
 
@@ -26,7 +25,7 @@ app.get("/get-designs/:project", async (req: Request, res: Response) => {
   return res.json(await getDesignProjectData(project));
 });
 
-app.get("/get-skills", async (_: Request, res: Response) => res.json(await getSkillsData()));
+// app.get("/get-skills", async (_: Request, res: Response) => res.json(await getSkillsData()));
 
 app.get("/get-repo/:owner/:name", async (req: Request, res: Response) => {
   const { owner, name } = await req.params;
@@ -40,6 +39,4 @@ app.get("/get-repo/card", async (_: Request, res: Response) => {
   return res.json(await getCodeCardData());
 });
 
-app.get("/get-repo/top", async (_: Request, res: Response) => res.json(await getTopRepoData()));
-
-app.get("/get-links", async (_: Request, res: Response) => res.json(await getContactData()));
+// app.get("/get-repo/top", async (_: Request, res: Response) => res.json(await getTopRepoData()));
