@@ -101,32 +101,6 @@ export const getRepoData = async (repo: string): repoProps => {
   }
 };
 
-// Content outdated — copy view
-// export const getTopRepoData = async (): topProps => {
-//   try {
-//     const { rows } = await db.query(
-//       `
-//       SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[2] AS "image", rdmp_repos.date, rdmp_repos.is_code, rdmp_repos.owner
-//       FROM rdmp_repos
-//       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
-//       WHERE rdmp_repos.top = true
-
-//       UNION ALL
-
-//       SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[2] AS "image", rdmp_designs.date, rdmp_designs.is_code, rdmp_designs.name AS "owner"
-//       FROM rdmp_designs
-//       JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
-//       WHERE rdmp_designs.top = true
-
-//       ORDER BY date DESC;
-//       `,
-//     );
-//     return rows;
-//   } catch (err: any) {
-//     throw new Error(err?.message);
-//   }
-// };
-
 export const handleRepo = (repo: gitRepo) => {
   try {
     db.query(
