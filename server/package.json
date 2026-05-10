@@ -7,7 +7,7 @@
     "dev": "tsx --watch code/server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/code/server.js"
   },
   "keywords": [],
   "author": "",
