@@ -11,7 +11,15 @@ import {
 import { addBio, addNewRepos } from "./handleGit.js";
 
 const app = express();
-app.use(cors<Request>());
+app.use(
+  cors<Request>({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    preflightContinue: false, // cors handles OPTIONS itself, no separate route needed
+    optionsSuccessStatus: 204,
+  }),
+);
 app.use(express.json());
 
 app.listen(4060, () => console.log("hey all, port 4060 here"));
