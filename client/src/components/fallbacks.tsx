@@ -3,6 +3,7 @@ import type { Refetch } from "@/types";
 
 import Grid from "./Grid";
 import Card from "./Card";
+import { type ReactNode, useState } from "react";
 
 export { ErrorFallback, NotFound, PageLoading, Loading, Error };
 
@@ -40,17 +41,21 @@ function PageLoading() {
   );
 }
 
-const Loading = () => (
-  <div className="w-full h-full flex flex-col items-center justify-center absolute trans top-1/2 left-1/2">
-    Loading...
-    {setTimeout(
-      () => (
-        <p>The server may be spinning up, please wait a little longer x</p>
-      ),
+const Loading = () => {
+  const [msg, setMsg] = useState<ReactNode | null>(null);
+  {
+    setTimeout(
+      () => setMsg(<p>The server may be spinning up, please wait a little longer x</p>),
       30000,
-    )}
-  </div>
-);
+    );
+  }
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center absolute trans top-1/2 left-1/2">
+      Loading...
+      {msg}
+    </div>
+  );
+};
 
 const Error = ({
   error,

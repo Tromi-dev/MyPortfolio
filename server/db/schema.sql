@@ -22,7 +22,7 @@ create table if not exists rdmp_technical_skills (
 
 create table if not exists rdmp_repos (
   repo_name text primary key, -- name on github — generated if pulled from git
-  display_name text not null, -- name displayed
+  display_name text, -- name displayed
   date date not null, -- updated
   colours jsonb, -- {background: hex, foreground: hex}
   logo text,

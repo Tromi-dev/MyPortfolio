@@ -39,4 +39,6 @@ app.get("/get-repo/card", async (_: Request, res: Response) => {
   return res.json(await getCodeCardData());
 });
 
+app.get("/health", (_, res) => res.sendStatus(200));
+
 // app.get("/get-repo/top", async (_: Request, res: Response) => res.json(await getTopRepoData()));

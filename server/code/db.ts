@@ -75,7 +75,7 @@ export const getCodeCardData = async (): codeCardProps => {
       FROM rdmp_repos
       LEFT JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
       LEFT JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
-      GROUP BY repo_name,
+      GROUP BY repo_name
       ORDER BY rdmp_repos.date DESC;
       `,
     );

@@ -51,7 +51,7 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
 
   if (isError)
     return (
-      <article className={`absolute trans top-[50dvh] left-[50dvh]`}>
+      <article className={`absolute trans top-1/2 left-1/2 w-fit h-fit`}>
         <Error error={error} refetch={refetch} />
       </article>
     );

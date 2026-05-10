@@ -19,7 +19,7 @@ export type gridProps = {
 
 export type codeCardProps = {
   repo: string;
-  name: string;
+  name?: string;
   logo: string;
   tags: string[][] | null;
   date: Date;
