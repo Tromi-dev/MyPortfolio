@@ -18,7 +18,7 @@ async function requestServer(url: string) {
   const timeout = setTimeout(() => {
     controller.abort();
     console.log("aborted");
-  }, 10000); // 10s timeout
+  }, 60000); // 60s timeout
 
   try {
     const res = await fetch(server + url, {

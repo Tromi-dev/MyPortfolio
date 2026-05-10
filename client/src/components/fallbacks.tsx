@@ -41,8 +41,14 @@ function PageLoading() {
 }
 
 const Loading = () => (
-  <div className="w-full h-full flex items-center justify-center absolute trans top-1/2 left-1/2">
+  <div className="w-full h-full flex flex-col items-center justify-center absolute trans top-1/2 left-1/2">
     Loading...
+    {setTimeout(
+      () => (
+        <p>The server may be spinning up, please wait a little longer x</p>
+      ),
+      30000,
+    )}
   </div>
 );
 
@@ -56,7 +62,7 @@ const Error = ({
   className?: string;
 }) => (
   <div
-    className={`w-full h-full flex flex-col items-center justify-center gap-4 min-h-fit max-h-80 text-center bg-black/5 p-4 rounded-2xl ${className}`}>
+    className={`w-full h-full flex flex-col items-center justify-center gap-4 min-h-fit max-h-80 text-center bg-black/10 p-4 rounded-2xl ${className}`}>
     {/* <img src="/error.svg" alt="Error 'X' Icon" className="max-h-40 h-1/3"  */}
     <h1 className="orbit text-ter-cont text-3xl w-fit text-shadow-i">Error</h1>
     <p className="text-center w-9/10">
