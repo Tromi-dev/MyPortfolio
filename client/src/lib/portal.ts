@@ -13,6 +13,8 @@ const env = import.meta.env;
 const database = createClient(env.VITE_SUPABASE_URL, env.VITE_SUPABASE_ANON_KEY);
 
 async function requestServer(url: string) {
+  console.log(url);
+
   const controller = new AbortController();
   const timeout = setTimeout(() => {
     controller.abort();
