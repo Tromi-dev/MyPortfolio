@@ -16,13 +16,7 @@ const octokit = new Octokit({
 const addNewRepos = async () => {
   // repos that I can't/don't want to make private and/or
   // that I don't want to be shown.
-  const protectedRepos = [
-    "MyPortfolio",
-    "Opinia",
-    "CoPlay",
-    "Pok-dex-Project",
-    "FractalDev-Portfolio",
-  ];
+  const protectedRepos = ["MyPortfolio", "Opinia", "CoPlay", "FractalDev-Portfolio"];
 
   const { data: allRepos } = await octokit.request("GET /user/repos", {
     visibility: "public",
