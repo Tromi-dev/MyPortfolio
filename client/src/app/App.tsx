@@ -71,12 +71,11 @@ const Dev = () => {
 
   return (
     <div
-      className="w-10 h-10 hover:w-60 fixed top-4 right-4 shadow-iv px-2 hover:px-4 py-2 flex items-center justify-between text-sm text-inv-sys bg-sys/15 border border-white/5 hover:brightness-125 backdrop-blur-[1px] rounded-lg z-999 overflow-hidden"
+      className="w-fit min-w-12 h-12 hover:w-60 fixed top-4 right-4 shadow-iv px-2 hover:px-4 py-2 flex items-center justify-center text-sm text-inv-sys bg-sys/15 border border-white/5 hover:brightness-125 backdrop-blur-[1px] rounded-lg z-999 overflow-hidden"
       style={{ transition: "filter 150ms var(--transition), width 300ms var(--transition)" }}
       onMouseEnter={() => setShowX(true)}
-      onMouseLeave={() => setShowX(false)}
-    >
-      <svg viewBox="0 0 30 30" height="24" width="24" fill="none">
+      onMouseLeave={() => setShowX(false)}>
+      <svg viewBox="0 0 30 30" height="80%" width="auto" fill="none">
         <circle r="12" cx="15" cy="15" className="stroke-inv-sys stroke-2" />
         <line
           x1="15"
@@ -91,8 +90,7 @@ const Dev = () => {
 
       <p
         className={`h-4 ml-2 translate-y-[-.125em] pr-1 font-medium text-inv-sys whitespace-nowrap ${!showX && "opacity-0 !w-0 !ml-0 !pr-0"}`}
-        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}
-      >
+        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}>
         Under Development
       </p>
 
@@ -103,8 +101,7 @@ const Dev = () => {
         width={12}
         onClick={() => setHide(true)}
         className={`cursor-pointer ml-2 ${!showX && "opacity-0 !w-0 !ml-0"}`}
-        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}
-      >
+        style={{ transition: "opacity 200ms var(--transition), width 300ms var(--transition)" }}>
         <line x2={12} y2={12} className="stroke-inv-sys stroke-1.95" strokeLinecap="round" />
         <line x1={12} y2={12} className="stroke-inv-sys stroke-1.95" strokeLinecap="round" />
       </svg>

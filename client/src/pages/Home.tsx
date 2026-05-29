@@ -35,15 +35,14 @@ const Hero = () => {
 
   function WaveText({ text, offset = 0 }: waveProps) {
     const CharacterJSX = (props: { characters: string[]; offset: number }) => (
-      <section>
+      <section className="whitespace-nowrap">
         {props.characters.map((c, i) => {
           const index = i + props.offset;
           return (
             <span
               key={index}
               className="name-header-char on hover-active"
-              style={{ animationDelay: `${index * 80}ms` }}
-            >
+              style={{ animationDelay: `${index * 80}ms` }}>
               {c}
             </span>
           );
@@ -75,11 +74,9 @@ const Hero = () => {
   return (
     <Grid layout="two-two" className="bg-dark hero" id="top">
       <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 max-h-dvh flex flex-col items-center justify-center thou:justify-center gap-12 z-[3] absolute top-1/2 left-1/2 trans">
-        {/* wave animation */}
         <h1
           key={resetAnimationKey}
-          className="flex gap-8 items-center justify-center orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]"
-        >
+          className="flex flex-wrap gap-8 items-center justify-center orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
           <WaveText text="reuben dubois" />
         </h1>
 
@@ -121,8 +118,7 @@ const About = () => {
     <Grid
       layout="three-two"
       id="about"
-      className="bg-sec !gap-y-0 z-20 home-shadow max-col:!py-12 max-col:!gap-y-8"
-    >
+      className="bg-sec !gap-y-0 z-20 home-shadow max-col:!py-12 max-col:!gap-y-8">
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
       <p className="text-ter-cont contrast-shadow -text [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
@@ -132,8 +128,7 @@ const About = () => {
       <Card
         className="in-grid pb-8 relative z-10 overflow-y-clip [grid-area:c] thou:[grid-area:d] max-thou:min-h-[24dvh] max-thou:max-h-[50dvh]"
         colour="purple"
-        ref={portalRef}
-      >
+        ref={portalRef}>
         <h2 className="w-fit orbit [letter-spacing:.1rem] text-xl text-center pb-1 ml-2">
           Technical Stack
         </h2>
@@ -144,8 +139,7 @@ const About = () => {
       <Card
         className="in-grid max-thou:!h-fit relative flex flex-col items-center justify-start !pb-8 [grid-area:d] thou:[grid-area:e/e-start/e-end/f-end]"
         variant="long"
-        colour="purple"
-      >
+        colour="purple">
         <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl pb-3 ml-2">
           Top Projects
         </h2>
@@ -190,8 +184,7 @@ const Experience = () => {
     <Grid
       layout="three-two"
       id="experience"
-      className="bg-pri !gap-y-0 max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8"
-    >
+      className="bg-pri !gap-y-0 max-thou:!min-h-fit max-col:!py-12 max-col:!gap-y-8">
       <TitleBlock
         text="My Experience"
         alt="#"
@@ -202,8 +195,7 @@ const Experience = () => {
         className={`${
           expText !== null ? "focused" : "text-center"
         } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-[86%] self-start thou:self-center h-fit mt-8 mb-6`}
-        id="experienceInfo"
-      >
+        id="experienceInfo">
         <Markdown
           components={{
             code: ({ className, ...rest }) => (
@@ -215,8 +207,7 @@ const Experience = () => {
             p: ({ className, ...rest }) => (
               <p {...rest} className={`contrast-shadow -text ${className}`} />
             ),
-          }}
-        >
+          }}>
           {expText !== null
             ? (myExperience[expText]?.text ?? "No text found")
             : "Click a card to read more about me!"}
@@ -251,8 +242,7 @@ const ExperienceCard = forwardRef<HTMLElement, experienceCardProps>(
         }${expText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " max-col:mt-4" : ""}
         `}
         colour="blue"
-        ref={ref}
-      >
+        ref={ref}>
         {myExperience[index].image && (
           <img src={myExperience[index].image} alt="Image For a 'My Experience' section" />
         )}
@@ -274,8 +264,7 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col contrast-shadow items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
-  >
+    className={`flex flex-col contrast-shadow items-center justify-evenly gap-5 min-h-fit max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}>
     <span className="section-header ">
       <h1 className="orbit text-center mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
         {text}

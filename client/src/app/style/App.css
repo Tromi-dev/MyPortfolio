@@ -110,3 +110,9 @@ main {
     font-size: 12px;
   }
 }
+
+@media screen and (width < 350px) {
+  :root {
+    font-size: 10px;
+  }
+}

@@ -10,7 +10,7 @@ import { Error, Loading } from "./fallbacks";
 import Card from "./Card";
 
 export default function Skills({ portalRef }: { portalRef: ElemRef }) {
-  const { isPending, isError, isFetching, error, data, refetch, status } = useQuery({
+  const { isPending, isError, isFetching, error, data, refetch } = useQuery({
     queryKey: ["skills"],
     queryFn: fetchSkills,
     staleTime: 1000 * 60 * 5, // 5 minutes
@@ -18,8 +18,6 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }) {
 
   if (isPending) return <Loading />;
   if (isError) return <Error error={error} refetch={refetch} className="mt-4" />;
-
-  console.log(status);
 
   return (
     <>
