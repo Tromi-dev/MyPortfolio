@@ -10,7 +10,6 @@ import { createClient, type PostgrestBuilder } from "@supabase/supabase-js";
 
 const env = import.meta.env;
 
-const server: string = env.VITE_SERVER_URL;
 const database = createClient(env.VITE_SUPABASE_URL, env.VITE_SUPABASE_ANON_KEY);
 
 async function requestServer(url: string) {
@@ -21,7 +20,7 @@ async function requestServer(url: string) {
   }, 60000); // 60s timeout
 
   try {
-    const res = await fetch(server + url, {
+    const res = await fetch(url, {
       signal: controller.signal,
     });
 
@@ -96,16 +95,16 @@ export const fetchTopProjects = async (): Promise<topProps[]> => {
 
 // Code.tsx
 export const fetchCodeCards = async (): Promise<codeCardProps[]> =>
-  await requestServer("/get-repo/card");
+  await requestServer("/api/get-repo/card");
 
 // CodeProject.tsx
 export const fetchCodeProject = async (owner: string, project: string): Promise<codeProjectProps> =>
-  await requestServer(`/get-repo/${owner}/${project}`);
+  await requestServer(`/api/get-repo/${owner}/${project}`);
 
 // Designs.tsx
 export const fetchDesignCards = async (): Promise<designCardProps[]> =>
-  await requestServer("/get-designs");
+  await requestServer("/api/get-designs");
 
 // DesignProject.tsx
 export const fetchDesignProject = async (project: string): Promise<designProjectProps> =>
-  await requestServer(`/get-designs/${project}`);
+  await requestServer(`/api/get-designs/${project}`);

@@ -11,4 +11,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // vite.config.ts
+  server: {
+    proxy: {
+      "/api": {
+        target: process.env.VITE_SERVER_URL,
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });

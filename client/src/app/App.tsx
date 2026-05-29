@@ -25,6 +25,20 @@ export default function App() {
   useEffect(() => scroll({ top: 0, behavior: "instant" }), [pathname]);
 
   useEffect(() => {
+    // first page viewed only + pages that wont call server normally
+    const firstVisit = sessionStorage.getItem("firstVisit");
+    if (!firstVisit && !pathname.startsWith("/code-projects")) {
+      // make server request to start warming up
+      console.log("fetching");
+      async function ping() {
+        await fetch("/api/health");
+      }
+      ping();
+    }
+    sessionStorage.setItem("firstVisit", "true");
+  }, [pathname]);
+
+  useEffect(() => {
     const rootClasses = document.querySelector(":root")?.classList;
     const isDark = theme === "dark";
     rootClasses?.remove(isDark ? "light" : "dark");
@@ -75,7 +89,7 @@ const Dev = () => {
       style={{ transition: "filter 150ms var(--transition), width 300ms var(--transition)" }}
       onMouseEnter={() => setShowX(true)}
       onMouseLeave={() => setShowX(false)}>
-      <svg viewBox="0 0 30 30" height="80%" width="auto" fill="none">
+      <svg viewBox="0 0 30 30" height="80%" fill="none">
         <circle r="12" cx="15" cy="15" className="stroke-inv-sys stroke-2" />
         <line
           x1="15"
