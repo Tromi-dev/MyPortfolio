@@ -104,14 +104,13 @@ const compareDates = (date1: Date, date2: Date) => {
   return 0;
 };
 
-const sortMethod = (
-  a: designCardProps | codeCardProps,
-  b: designCardProps | codeCardProps,
-  userInput: userInputProps,
-): number => {
+type cards = designCardProps | codeCardProps;
+const sortMethod = (a: cards, b: cards, userInput: userInputProps): number => {
   if (userInput.sort === "date") return compareDates(a.date, b.date);
 
-  return a.name.localeCompare(b.name);
+  const getName = (obj: cards) => ("repo" in obj ? obj.name || obj.repo : obj.name);
+
+  return getName(a).localeCompare(getName(b));
 };
 
 //* —————————————————————————————————————————————————————————————————————————————————————
