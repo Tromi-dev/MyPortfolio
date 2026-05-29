@@ -1,9 +1,9 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" },
     {
       "source": "/api/:path*",
       "destination": "https://myportfolio-64mk.onrender.com/:path*"
-    }
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
