@@ -46,7 +46,7 @@ const Loading = () => {
   {
     setTimeout(
       () => setMsg(<p>The server may be spinning up, please wait a little longer x</p>),
-      30000,
+      16000,
     );
   }
   return (
