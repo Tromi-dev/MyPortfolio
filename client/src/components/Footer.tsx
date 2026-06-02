@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 import Grid from "./Grid";
 import Card from "./Card";
+import { GitHubIcon } from "./icons";
 
 export default function Footer() {
   const email: string = import.meta.env.VITE_EMAIL;
@@ -55,6 +56,10 @@ export default function Footer() {
           />
 
           <Link to="/ReubenDuboisCV.pdf" children="My CV" target="_blank" className="link" />
+          <Link to="https://github.com/Tromi-dev" className="link">
+            <GitHubIcon />
+            GitHub
+          </Link>
 
           <p className="max-mob:text-center max-mob:w-max">
             {new Date().getFullYear()} RD Design & Development

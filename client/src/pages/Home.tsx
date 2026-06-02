@@ -1,6 +1,6 @@
 import "./style/Home.css";
 
-import type { cardProps, Elem, waveProps } from "@/types";
+import type { cardProps, Elem } from "@/types";
 import {
   forwardRef,
   useEffect,
@@ -19,6 +19,7 @@ import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
 import Markdown from "react-markdown";
+import WaveText from "@/components/WaveText";
 
 export default function HomePage() {
   return (
@@ -32,44 +33,6 @@ export default function HomePage() {
 
 const Hero = () => {
   const [resetAnimationKey, setResetAnimationkey] = useState(0);
-
-  function WaveText({ text, offset = 0 }: waveProps) {
-    const CharacterJSX = (props: { characters: string[]; offset: number }) => (
-      <section className="whitespace-nowrap">
-        {props.characters.map((c, i) => {
-          const index = i + props.offset;
-          return (
-            <span
-              key={index}
-              className="name-header-char on hover-active"
-              style={{ animationDelay: `${index * 80}ms` }}>
-              {c}
-            </span>
-          );
-        })}
-      </section>
-    );
-
-    const characters = text.split("");
-    const firstSpace = characters.findIndex(c => c === " ");
-
-    if (firstSpace === -1) {
-      return <CharacterJSX characters={characters} offset={offset} />;
-    }
-
-    // otherwise split at the first space —> render the leading section
-    // —> render a new WaveText instance for the remaining text as a sibling.
-    const beforeChars = characters.slice(0, firstSpace);
-    const afterText = text.slice(firstSpace + 1);
-
-    return (
-      <>
-        {beforeChars.length && <CharacterJSX characters={beforeChars} offset={offset} />}
-
-        {afterText.length && <WaveText text={afterText} offset={offset + firstSpace + 1} />}
-      </>
-    );
-  }
 
   return (
     <Grid layout="two-two" className="bg-dark hero" id="top">

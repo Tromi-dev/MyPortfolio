@@ -154,7 +154,7 @@
   /* animation-delay in style attr */
   transform: translateY(-0.3em);
   will-change: transform;
-  transition: transoform 500ms var(--transition);
+  transition: transform 500ms var(--transition);
   animation: charSpike 6s var(--transition) infinite;
 }
 @media (prefers-reduced-motion: reduce) {
